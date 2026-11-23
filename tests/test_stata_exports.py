@@ -38,6 +38,14 @@ class StataExportTests(unittest.TestCase):
         self.assertEqual(frame["Date"].min().date().isoformat(), "2019-01-03")
         self.assertEqual(frame["Date"].max().date().isoformat(), "2026-11-20")
 
+        canonical = pd.read_stata(
+            ROOT / "data" / "processed" / "clean_returns.dta",
+            convert_categoricals=False,
+        )
+        self.assertTrue(pd.api.types.is_datetime64_any_dtype(canonical["date"]))
+        self.assertEqual(canonical["date"].min().date().isoformat(), "2019-01-03")
+        self.assertEqual(canonical["date"].max().date().isoformat(), "2026-11-20")
+
 
 if __name__ == "__main__":
     unittest.main()

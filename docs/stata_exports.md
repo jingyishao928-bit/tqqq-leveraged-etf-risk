@@ -34,7 +34,7 @@ This route reads the frozen raw DTA files, rebuilds
 `part1_clean_prices.dta` and `part1_clean_returns.dta`, and then rebuilds the
 two replication DTA tables. Its cleaning logic matches the Python workflow:
 
-1. Use adjusted close for TQQQ and QQQ and close for NDX.
+1. Use adjusted close for TQQQ, SQQQ and QQQ and close for NDX.
 2. Remove duplicate dates, sort ascending and keep common trading dates.
 3. Restrict the sample to 2019-01-01 through 2026-11-20.
 4. Reject missing or non-positive retained prices.
@@ -61,7 +61,7 @@ two replication DTA tables. Its cleaning logic matches the Python workflow:
 
 ## Included files
 
-The current export set contains 12 files:
+The current export set contains 14 files:
 
 ```text
 data/metadata/part1_checksums.dta
@@ -71,8 +71,10 @@ data/metadata/part1_product_facts.dta
 data/metadata/part1_source_manifest.dta
 data/processed/part1_clean_prices.dta
 data/processed/part1_clean_returns.dta
+data/processed/clean_returns.dta
 data/raw/NDX_raw.dta
 data/raw/QQQ_raw.dta
+data/raw/SQQQ_raw.dta
 data/raw/TQQQ_raw.dta
 outputs/tables/part1_replication_path.dta
 outputs/tables/table_part1_replication.dta

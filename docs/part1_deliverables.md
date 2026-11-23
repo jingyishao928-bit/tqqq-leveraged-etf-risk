@@ -34,14 +34,14 @@ matter.
 
 ### Slide 3 Data and cleaning
 
-State the common window (2019-01-01 to 2026-11-20), the three series, the
+State the common window (2019-01-01 to 2026-11-20), the four series, the
 source pages, the price-field choices and the common-date join. Mention that
 the cleaned table contains 1,984 price dates and 1,983 return observations.
 
 Suggested sentence:
 
-> We use adjusted close for TQQQ and QQQ, close for the Nasdaq-100 index, and
-> retain only dates observed in all three series.
+> We use adjusted close for TQQQ, SQQQ and QQQ, close for the Nasdaq-100
+> index, and retain only dates observed in all four series.
 
 Point the audience to `data/metadata/part1_data_dictionary.csv` and
 `data/metadata/part1_source_manifest.csv` for auditability.
