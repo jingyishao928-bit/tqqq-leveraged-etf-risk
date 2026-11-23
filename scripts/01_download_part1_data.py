@@ -1,8 +1,10 @@
-"""Download and clean the Part 1 TQQQ data set.
+"""Download and clean the reviewed leveraged-ETF data set.
 
 The script uses Yahoo Finance's chart endpoint for reproducible daily prices.
 Raw files are kept unchanged; the processed tables use adjusted ETF prices
-and the unadjusted close for the Nasdaq-100 index.
+and the unadjusted close for the Nasdaq-100 index. The Part 1 files retain
+their established column names, while the canonical clean-return file follows
+the lower-case schema documented in ``docs/data_dictionary.md``.
 """
 
 from __future__ import annotations
@@ -12,7 +14,7 @@ import hashlib
 import json
 import subprocess
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.parse import quote
@@ -36,18 +38,27 @@ ANALYSIS_START = PART1_CONFIG["analysis_start_date"]
 ANALYSIS_END = PART1_CONFIG["analysis_end_date"]
 PRICES_FILE = ROOT / PART1_CONFIG["prices_file"]
 RETURNS_FILE = ROOT / PART1_CONFIG["returns_file"]
+CANONICAL_RETURNS_FILE = ROOT / PROJECT_CONFIG["data"]["processed_file"]
 
 SYMBOLS = {
     "TQQQ": "TQQQ",
+    "SQQQ": "SQQQ",
     "QQQ": "QQQ",
     "NDX": "^NDX",
+}
+ETF_LABELS = {"TQQQ", "SQQQ", "QQQ"}
+SOURCE_URLS = {
+    "TQQQ": "https://finance.yahoo.com/quote/TQQQ/history/",
+    "SQQQ": "https://finance.yahoo.com/quote/SQQQ/history/",
+    "QQQ": "https://finance.yahoo.com/quote/QQQ/history/",
+    "NDX": "https://finance.yahoo.com/quote/%5ENDX/history/",
 }
 
 
 def date_to_epoch(date_text: str, inclusive: bool = True) -> int:
     date = pd.Timestamp(date_text)
     if inclusive:
-        date = date + pd.Timedelta(days=1)
+        date = date + timedelta(days=1)
     return int(date.tz_localize("UTC").timestamp())
 
 
@@ -157,13 +168,13 @@ def download_raw() -> tuple[dict[str, pd.DataFrame], dict[str, str]]:
         last_url = ""
         while chunk_start <= pd.Timestamp(ANALYSIS_END):
             chunk_end = min(
-                chunk_start + pd.Timedelta(days=330), pd.Timestamp(ANALYSIS_END)
+                chunk_start + timedelta(days=330), pd.Timestamp(ANALYSIS_END)
             )
             result, last_url = fetch_chart(
                 symbol, chunk_start.date().isoformat(), chunk_end.date().isoformat()
             )
             chunks.append(chart_to_frame(result, label))
-            chunk_start = chunk_end + pd.Timedelta(days=1)
+            chunk_start = chunk_end + timedelta(days=1)
             time.sleep(0.4)
         frame = (
             pd.concat(chunks, ignore_index=True)
@@ -183,27 +194,29 @@ def make_processed(frames: dict[str, pd.DataFrame]) -> tuple[pd.DataFrame, pd.Da
     for label, frame in frames.items():
         frame = frame.copy()
         frame["Date"] = pd.to_datetime(frame["Date"])
-        price_col = "Adj Close" if label in {"TQQQ", "QQQ"} else "Close"
+        price_col = "Adj Close" if label in ETF_LABELS else "Close"
         selected[label] = frame[["Date", price_col, "Volume"]].rename(
             columns={price_col: f"{label}_price", "Volume": f"{label}_volume"}
         )
 
     prices = selected["TQQQ"]
-    prices = prices.merge(selected["QQQ"], on="Date", how="inner")
-    prices = prices.merge(selected["NDX"], on="Date", how="inner")
+    for label in ["SQQQ", "QQQ", "NDX"]:
+        prices = prices.merge(
+            selected[label], on="Date", how="inner", validate="one_to_one"
+        )
     prices = prices.sort_values("Date").drop_duplicates("Date").reset_index(drop=True)
     prices = prices.loc[
         (prices["Date"] >= ANALYSIS_START) & (prices["Date"] <= ANALYSIS_END)
     ].copy()
 
-    price_columns = ["TQQQ_price", "QQQ_price", "NDX_price"]
+    price_columns = [f"{label}_price" for label in SYMBOLS]
     if prices[price_columns].isna().any().any():
         raise ValueError("Missing prices remain after the common-date merge")
     if (prices[price_columns] <= 0).any().any():
         raise ValueError("Non-positive prices remain after cleaning")
 
     returns = prices[["Date"]].copy()
-    for label in ["TQQQ", "QQQ", "NDX"]:
+    for label in SYMBOLS:
         returns[f"{label}_simple_ret"] = prices[f"{label}_price"].pct_change()
         returns[f"{label}_log_ret"] = np.log1p(returns[f"{label}_simple_ret"])
     returns = returns.join(prices.drop(columns="Date").set_index(prices.index))
@@ -212,10 +225,56 @@ def make_processed(frames: dict[str, pd.DataFrame]) -> tuple[pd.DataFrame, pd.Da
     # Flag observations for manual review; genuine crisis observations are kept.
     returns["manual_review_flag"] = (
         returns["TQQQ_simple_ret"].abs() > 0.30
+    ) | (
+        returns["SQQQ_simple_ret"].abs() > 0.30
     ) | (returns["QQQ_simple_ret"].abs() > 0.15) | (
         returns["NDX_simple_ret"].abs() > 0.15
     )
     return prices, returns
+
+
+def make_canonical_returns(returns: pd.DataFrame) -> pd.DataFrame:
+    """Return the group-wide clean-return table using the canonical schema."""
+    rename_map = {
+        "Date": "date",
+        "QQQ_price": "qqq_adj_close",
+        "TQQQ_price": "tqqq_adj_close",
+        "SQQQ_price": "sqqq_adj_close",
+        "NDX_price": "ndx_close",
+        "QQQ_volume": "qqq_volume",
+        "TQQQ_volume": "tqqq_volume",
+        "SQQQ_volume": "sqqq_volume",
+        "NDX_volume": "ndx_volume",
+        "QQQ_simple_ret": "qqq_simple_return",
+        "QQQ_log_ret": "qqq_log_return",
+        "TQQQ_simple_ret": "tqqq_simple_return",
+        "TQQQ_log_ret": "tqqq_log_return",
+        "SQQQ_simple_ret": "sqqq_simple_return",
+        "SQQQ_log_ret": "sqqq_log_return",
+        "NDX_simple_ret": "ndx_simple_return",
+        "NDX_log_ret": "ndx_log_return",
+    }
+    columns = [
+        "Date",
+        "QQQ_price",
+        "TQQQ_price",
+        "SQQQ_price",
+        "NDX_price",
+        "QQQ_volume",
+        "TQQQ_volume",
+        "SQQQ_volume",
+        "NDX_volume",
+        "QQQ_simple_ret",
+        "QQQ_log_ret",
+        "TQQQ_simple_ret",
+        "TQQQ_log_ret",
+        "SQQQ_simple_ret",
+        "SQQQ_log_ret",
+        "NDX_simple_ret",
+        "NDX_log_ret",
+        "manual_review_flag",
+    ]
+    return returns[columns].rename(columns=rename_map)
 
 
 def write_quality_table(prices: pd.DataFrame, returns: pd.DataFrame) -> None:
@@ -229,7 +288,7 @@ def write_quality_table(prices: pd.DataFrame, returns: pd.DataFrame) -> None:
         ("manual_review_rows", int(returns["manual_review_flag"].sum())),
     ]
     with (METADATA_DIR / "part1_data_quality.csv").open("w", newline="") as handle:
-        writer = csv.writer(handle)
+        writer = csv.writer(handle, lineterminator="\n")
         writer.writerow(["check", "value"])
         writer.writerows(checks)
 
@@ -246,7 +305,7 @@ def sha256_file(path: Path) -> str:
 def write_checksum_manifest() -> None:
     """Record checksums for the reviewed Part 1 data and metadata files."""
     paths = sorted(RAW_DIR.glob("*_raw.csv"))
-    paths.extend([PRICES_FILE, RETURNS_FILE])
+    paths.extend([PRICES_FILE, RETURNS_FILE, CANONICAL_RETURNS_FILE])
     paths.extend(
         path
         for path in [
@@ -273,10 +332,14 @@ def write_checksum_manifest() -> None:
 def main() -> None:
     for directory in [RAW_DIR, PROCESSED_DIR, METADATA_DIR]:
         directory.mkdir(parents=True, exist_ok=True)
-    frames, urls = download_raw()
+    frames, _urls = download_raw()
     prices, returns = make_processed(frames)
+    canonical_returns = make_canonical_returns(returns)
     prices.to_csv(PRICES_FILE, index=False, date_format="%Y-%m-%d")
     returns.to_csv(RETURNS_FILE, index=False, date_format="%Y-%m-%d")
+    canonical_returns.to_csv(
+        CANONICAL_RETURNS_FILE, index=False, date_format="%Y-%m-%d"
+    )
     write_quality_table(prices, returns)
 
     downloaded_at = datetime.now(timezone.utc).isoformat()
@@ -285,17 +348,19 @@ def main() -> None:
             {
                 "ticker": label,
                 "source": "Yahoo Finance chart API",
-                "source_url": urls[label],
+                "source_url": SOURCE_URLS[label],
                 "downloaded_at_utc": downloaded_at,
                 "raw_start_requested": RAW_START,
                 "raw_end_requested": ANALYSIS_END,
                 "analysis_start": ANALYSIS_START,
                 "analysis_end": ANALYSIS_END,
-                "field_used": "Adj Close" if label in {"TQQQ", "QQQ"} else "Close",
+                "field_used": "Adj Close" if label in ETF_LABELS else "Close",
                 "adjustment_note": (
-                    "Adjusted Close used for ETF total-return series"
-                    if label in {"TQQQ", "QQQ"}
-                    else "Close used for Nasdaq-100 index series"
+                    "Adjusted Close used for ETF total-return series; "
+                    "downloaded through Yahoo Finance chart endpoint in sub-periods"
+                    if label in ETF_LABELS
+                    else "Close used for Nasdaq-100 index series; downloaded through "
+                    "Yahoo Finance chart endpoint in sub-periods"
                 ),
             }
             for label in SYMBOLS

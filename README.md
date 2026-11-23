@@ -51,12 +51,13 @@ python scripts/06_run_backtest.py
 
 Scripts are scaffolds until their owners implement and test the corresponding modules. Do not present placeholder output as an empirical result.
 
-## Part 1 data status
+## Reviewed data status
 
-The reviewed TQQQ, QQQ and Nasdaq-100 source extracts and Part 1 mechanism
-check are available on `main`. The supplementary
-processed files are prefixed `part1_` because they do not yet contain SQQQ and
-therefore do not replace the canonical team data contract.
+The reviewed TQQQ, SQQQ, QQQ and Nasdaq-100 source extracts are available in
+both CSV and Stata formats. The lower-case canonical analysis file is
+`data/processed/clean_returns.csv`. The `part1_clean_*` compatibility files
+retain the established wide-column format used by the Part 1 TQQQ mechanism
+check.
 
 ```bash
 python scripts/01_download_part1_data.py

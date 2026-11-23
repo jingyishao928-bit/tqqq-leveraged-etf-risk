@@ -5,17 +5,20 @@ Open,Opening market price,Yahoo Finance raw field,raw audit only
 High,Intraday high,Yahoo Finance raw field,raw audit only
 Low,Intraday low,Yahoo Finance raw field,raw audit only
 Close,Unadjusted close,Yahoo Finance raw field,NDX price series
-Adj Close,Adjusted close,Yahoo Finance raw field,TQQQ and QQQ performance series
+Adj Close,Adjusted close,Yahoo Finance raw field,TQQQ SQQQ and QQQ performance series
 Volume,Reported daily volume,Yahoo Finance raw field,liquidity/context
 Dividends,Reported cash distribution,Yahoo Finance events,raw audit only
 Stock Splits,Reported split ratio,Yahoo Finance events,raw audit only
 TQQQ_price,TQQQ adjusted price,Adj Close after cleaning,actual NAV proxy
+SQQQ_price,SQQQ adjusted price,Adj Close after cleaning,inverse ETF NAV proxy
 QQQ_price,QQQ adjusted price,Adj Close after cleaning,1x benchmark
 NDX_price,Nasdaq-100 index price,Close after cleaning,underlying benchmark
 TQQQ_simple_ret,TQQQ daily simple return,P_t/P_(t-1)-1,performance and risk
+SQQQ_simple_ret,SQQQ daily simple return,P_t/P_(t-1)-1,inverse ETF performance and risk
 QQQ_simple_ret,QQQ daily simple return,P_t/P_(t-1)-1,benchmark risk
 NDX_simple_ret,NDX daily simple return,P_t/P_(t-1)-1,idealized leverage input
 TQQQ_log_ret,TQQQ daily log return,log(1+simple return),modeling input
+SQQQ_log_ret,SQQQ daily log return,log(1+simple return),modeling and diagnostics
 QQQ_log_ret,QQQ daily log return,log(1+simple return),modeling input
 NDX_log_ret,NDX daily log return,log(1+simple return),modeling input
 manual_review_flag,Large-move review indicator,absolute return threshold,quality control

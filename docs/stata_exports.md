@@ -41,7 +41,7 @@ python scripts/export_part1_stata.py --check-only
 
 ## Included files
 
-The current export set contains 12 files:
+The current export set contains 14 files:
 
 ```text
 data/metadata/part1_checksums.dta
@@ -51,8 +51,10 @@ data/metadata/part1_product_facts.dta
 data/metadata/part1_source_manifest.dta
 data/processed/part1_clean_prices.dta
 data/processed/part1_clean_returns.dta
+data/processed/clean_returns.dta
 data/raw/NDX_raw.dta
 data/raw/QQQ_raw.dta
+data/raw/SQQQ_raw.dta
 data/raw/TQQQ_raw.dta
 outputs/tables/part1_replication_path.dta
 outputs/tables/table_part1_replication.dta

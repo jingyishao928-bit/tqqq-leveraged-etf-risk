@@ -4,9 +4,9 @@ analysis_end,2026-11-20
 leverage_target,3.0
 common_price_rows,1984
 return_observations,1983
-actual_final_nav_index,9.230663318090388
-ideal_final_nav_index,14.589359383419463
-final_tracking_gap_pct,-0.36730166997045355
-daily_return_correlation_actual_vs_3x_ndx,0.9989207973803248
-mean_daily_actual_minus_ideal_return,-0.0002842768687559582
-median_daily_actual_minus_ideal_return,-0.00021794431235339995
+actual_final_nav_index,9.230664304230752
+ideal_final_nav_index,14.589359383419465
+final_tracking_gap_pct,-0.36730160237733056
+daily_return_correlation_actual_vs_3x_ndx,0.9989207923034978
+mean_daily_actual_minus_ideal_return,-0.0002842770162005329
+median_daily_actual_minus_ideal_return,-0.00021776151657659998
