@@ -85,10 +85,12 @@ reason to delete data or force the curves to match.
 ## Results to mention in the presentation
 
 For the current common window, the diagnostic has 1,984 price rows and 1,983
-return observations. The actual and idealized daily returns have a high
-correlation, while the cumulative NAV paths diverge materially. The exact
-values are in `outputs/part1/tables/table_part1_replication.csv`; use those values in
-slides rather than manually retyping numbers.
+return observations. The TQQQ adjusted-price return and idealized daily return
+have a high correlation, while their cumulative wealth indexes diverge
+materially. The TQQQ series is a Yahoo adjusted-price wealth index, not an
+official fund NAV series. The exact values are in
+`outputs/part1/tables/table_part1_replication.csv`; use those values in slides
+rather than manually retyping numbers.
 
 Use `data/processed/clean_returns.csv` for new group-wide analysis. The
 `part1_clean_*` files remain available for the existing replication script and

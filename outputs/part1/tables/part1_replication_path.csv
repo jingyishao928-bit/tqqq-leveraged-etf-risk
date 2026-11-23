@@ -1,4 +1,4 @@
-Date,TQQQ_actual_nav_index,TQQQ_ideal_nav_index,tracking_gap_pct,NDX_simple_ret
+Date,TQQQ_adjusted_price_wealth_index,TQQQ_idealized_3x_wealth_index,tracking_gap_pct,NDX_simple_ret
 2019-01-02,1.00000000,1.00000000,0.00000000,
 2019-01-03,0.90311424,0.89919293,0.00436092,-0.03360236
 2019-01-04,1.01863212,1.02010968,-0.00144843,0.04482418

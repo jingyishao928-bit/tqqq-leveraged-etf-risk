@@ -12,6 +12,10 @@ RETURNS_FILE = ROOT / "data" / "processed" / "part1_clean_returns.csv"
 CANONICAL_RETURNS_FILE = ROOT / "data" / "processed" / "clean_returns.csv"
 SQQQ_RAW_FILE = ROOT / "data" / "raw" / "SQQQ_raw.csv"
 PRODUCT_FACTS_FILE = ROOT / "data" / "metadata" / "part1_product_facts.csv"
+REPLICATION_PATH_FILE = ROOT / "outputs" / "part1" / "tables" / "part1_replication_path.csv"
+REPLICATION_SUMMARY_FILE = (
+    ROOT / "outputs" / "part1" / "tables" / "table_part1_replication.csv"
+)
 
 
 def read_rows(path: Path) -> list[dict[str, str]]:
@@ -148,6 +152,33 @@ class Part1DataTests(unittest.TestCase):
             with self.subTest(ticker=ticker):
                 for fact, value in expected_facts.items():
                     self.assertEqual(facts[ticker].get(fact), value)
+
+    def test_replication_outputs_use_wealth_index_not_nav(self):
+        path_rows = read_rows(REPLICATION_PATH_FILE)
+        self.assertTrue(path_rows)
+        self.assertEqual(
+            set(path_rows[0]),
+            {
+                "Date",
+                "TQQQ_adjusted_price_wealth_index",
+                "TQQQ_idealized_3x_wealth_index",
+                "tracking_gap_pct",
+                "NDX_simple_ret",
+            },
+        )
+        self.assertFalse(any("nav" in column.lower() for column in path_rows[0]))
+
+        summary = {row["metric"]: row["value"] for row in read_rows(REPLICATION_SUMMARY_FILE)}
+        self.assertNotIn("actual_final_nav_index", summary)
+        self.assertNotIn("ideal_final_nav_index", summary)
+        self.assertAlmostEqual(
+            float(summary["adjusted_price_final_wealth_index"]),
+            9.230664304230752,
+        )
+        self.assertAlmostEqual(
+            float(summary["idealized_3x_final_wealth_index"]),
+            14.589359383419465,
+        )
 
 
 if __name__ == "__main__":

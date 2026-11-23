@@ -154,8 +154,8 @@ For 2019-01-02 through 2026-11-20, the current output reports:
 | Metric | Current value |
 |---|---:|
 | Correlation: actual TQQQ daily return vs. `3 x NDX` | 0.9989 |
-| Actual TQQQ final normalized NAV | 9.2307 |
-| Idealized daily 3x final normalized NAV | 14.5894 |
+| TQQQ adjusted-price final wealth index | 9.2307 |
+| Idealized daily 3x final wealth index | 14.5894 |
 | Actual path relative to idealized path | 36.73% lower |
 
 This gap must not be labelled entirely as volatility decay. It also contains
@@ -166,7 +166,7 @@ an exact replication model for the fund.
 
 ## 8. Automated test coverage
 
-`test_part1_data.py` currently checks eight data and metadata properties:
+`test_part1_data.py` currently checks nine data, metadata and output properties:
 
 | Test | What it protects |
 |---|---|
@@ -178,13 +178,14 @@ an exact replication model for the fund.
 | `test_canonical_returns_include_all_four_series` | The canonical table contains finite prices and returns for all four series |
 | `test_sqqq_daily_returns_track_the_inverse_ndx_direction` | SQQQ daily returns remain highly correlated with the idealized `-3 x NDX` target |
 | `test_product_facts_cover_qqq_tqqq_and_sqqq` | Product facts cover all three ETFs, use official HTTPS sources, share the stated access date and retain the reviewed names, objectives, fees and TQQQ waiver expiry |
+| `test_replication_outputs_use_wealth_index_not_nav` | Replication CSVs label Yahoo adjusted prices as a wealth index rather than official fund NAV and retain the expected terminal values |
 
 `test_financial_conventions.py` adds five tests for log-to-simple return
 conversion, path dependence, the simulated NAV floor, uncapped short losses,
 and the positive-loss VaR/ES convention. `test_stata_exports.py` adds two tests
 that require every tracked CSV to have a readable, same-sized `.dta` copy and
 that verify the analysis date variable is stored correctly. The current suite
-contains fifteen tests for the data, metadata and existing conventions.
+contains sixteen tests for the data, metadata, outputs and existing conventions.
 
 `test_part1_analysis.py` adds six tests for the runnable Part 1 analysis:
 
@@ -197,7 +198,7 @@ contains fifteen tests for the data, metadata and existing conventions.
 | `test_configured_window_and_review_observations_are_retained` | Inclusive date filtering, minimum sample length and preservation of flagged rows |
 | `test_pipeline_exports_matching_dates_and_preserves_input` | Two numeric CSV/DTA table pairs, actual date formats, PNG creation and unchanged input bytes |
 
-The complete suite contains twenty-one tests. The analysis export helper also
+The complete suite contains twenty-two tests. The analysis export helper also
 checks every generated CSV/DTA round trip for names, values, dates and text.
 
 Run all tests from the repository root:

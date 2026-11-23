@@ -127,7 +127,7 @@ Shared raw/processed data and audit metadata remain under `data/`.
 | Workstream | Main responsibility | Primary locations |
 |---|---|---|
 | A | Product research, integration, slides and report | `docs/product_profile.md`, `slides/`, `report/` |
-| B | Data, return definitions and NAV mechanics | `data.py`, `mechanics.py`, scripts 01-02 |
+| B | Data, return definitions and daily-reset wealth mechanics | `data.py`, `mechanics.py`, scripts 01-02 |
 | C | GBM/GARCH-t estimation and simulation | `models.py`, `simulation.py`, scripts 03-04 |
 | D | VaR/ES, scenarios and 1x benchmark | `risk.py`, `scenarios.py`, script 05 |
 | E | Backtesting, coverage tests and limits | `backtesting.py`, script 06 |

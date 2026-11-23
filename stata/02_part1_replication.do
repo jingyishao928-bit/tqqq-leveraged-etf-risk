@@ -36,20 +36,20 @@ generate double NDX_simple_ret = NDX_price / NDX_price[_n-1] - 1 if _n > 1
 generate double target_daily_ret = `leverage' * NDX_simple_ret
 assert 1 + target_daily_ret > 0 if !missing(target_daily_ret)
 
-generate double TQQQ_actual_nav_index = TQQQ_price / TQQQ_price[1]
-generate double TQQQ_ideal_nav_index = .
-replace TQQQ_ideal_nav_index = 1 in 1
-replace TQQQ_ideal_nav_index = TQQQ_ideal_nav_index[_n-1] ///
+generate double TQQQ_adjusted_price_wealth_index = TQQQ_price / TQQQ_price[1]
+generate double TQQQ_idealized_3x_wealth_index = .
+replace TQQQ_idealized_3x_wealth_index = 1 in 1
+replace TQQQ_idealized_3x_wealth_index = TQQQ_idealized_3x_wealth_index[_n-1] ///
     * (1 + target_daily_ret) in 2/L
 generate double tracking_gap_pct = ///
-    TQQQ_actual_nav_index / TQQQ_ideal_nav_index - 1
+    TQQQ_adjusted_price_wealth_index / TQQQ_idealized_3x_wealth_index - 1
 
 local price_rows = _N
 local return_observations = _N - 1
 local analysis_start = string(Date[1], "%tdCCYY-NN-DD")
 local analysis_end = string(Date[_N], "%tdCCYY-NN-DD")
-local actual_final = TQQQ_actual_nav_index[_N]
-local ideal_final = TQQQ_ideal_nav_index[_N]
+local adjusted_price_final = TQQQ_adjusted_price_wealth_index[_N]
+local idealized_final = TQQQ_idealized_3x_wealth_index[_N]
 local final_gap = tracking_gap_pct[_N]
 
 quietly correlate TQQQ_simple_ret target_daily_ret
@@ -60,12 +60,12 @@ local mean_gap = r(mean)
 local median_gap = r(p50)
 
 preserve
-keep Date TQQQ_actual_nav_index TQQQ_ideal_nav_index tracking_gap_pct ///
+keep Date TQQQ_adjusted_price_wealth_index TQQQ_idealized_3x_wealth_index tracking_gap_pct ///
     NDX_simple_ret
-order Date TQQQ_actual_nav_index TQQQ_ideal_nav_index tracking_gap_pct ///
+order Date TQQQ_adjusted_price_wealth_index TQQQ_idealized_3x_wealth_index tracking_gap_pct ///
     NDX_simple_ret
 format Date %tdCCYY-NN-DD
-label data "Part 1 actual and idealized TQQQ paths"
+label data "Part 1 adjusted-price and idealized wealth paths"
 save "`table_dir'/part1_replication_path.dta", replace
 restore
 
@@ -83,10 +83,10 @@ replace metric = "common_price_rows" in 4
 replace value = strtrim(string(`price_rows', "%12.0f")) in 4
 replace metric = "return_observations" in 5
 replace value = strtrim(string(`return_observations', "%12.0f")) in 5
-replace metric = "actual_final_nav_index" in 6
-replace value = strtrim(string(`actual_final', "%24.17g")) in 6
-replace metric = "ideal_final_nav_index" in 7
-replace value = strtrim(string(`ideal_final', "%24.17g")) in 7
+replace metric = "adjusted_price_final_wealth_index" in 6
+replace value = strtrim(string(`adjusted_price_final', "%24.17g")) in 6
+replace metric = "idealized_3x_final_wealth_index" in 7
+replace value = strtrim(string(`idealized_final', "%24.17g")) in 7
 replace metric = "final_tracking_gap_pct" in 8
 replace value = strtrim(string(`final_gap', "%24.17g")) in 8
 replace metric = "daily_return_correlation_actual_vs_3x_ndx" in 9
