@@ -30,8 +30,9 @@ PART1_CONFIG = PROJECT_CONFIG["part1"]
 LEVERAGE = float(PART1_CONFIG["leverage"])
 PRICES_FILE = ROOT / PART1_CONFIG["prices_file"]
 RETURNS_FILE = ROOT / PART1_CONFIG["returns_file"]
-TABLE_DIR = ROOT / "outputs" / "tables"
-FIGURE_DIR = ROOT / "outputs" / "figures"
+OUTPUT_DIR = ROOT / PART1_CONFIG["output_dir"]
+TABLE_DIR = OUTPUT_DIR / "tables"
+FIGURE_DIR = OUTPUT_DIR / "figures"
 
 
 def main() -> None:

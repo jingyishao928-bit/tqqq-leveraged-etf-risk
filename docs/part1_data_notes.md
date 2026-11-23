@@ -86,7 +86,7 @@ reason to delete data or force the curves to match.
 For the current common window, the diagnostic has 1,984 price rows and 1,983
 return observations. The actual and idealized daily returns have a high
 correlation, while the cumulative NAV paths diverge materially. The exact
-values are in `outputs/tables/table_part1_replication.csv`; use those values in
+values are in `outputs/part1/tables/table_part1_replication.csv`; use those values in
 slides rather than manually retyping numbers.
 
 Use `data/processed/clean_returns.csv` for new group-wide analysis. The

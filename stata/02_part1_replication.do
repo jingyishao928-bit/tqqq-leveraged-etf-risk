@@ -14,7 +14,11 @@ if `"`project_root'"' == "" local project_root "`c(pwd)'"
 if `"`leverage'"' == "" local leverage 3
 
 local processed_dir "`project_root'/data/processed"
-local table_dir     "`project_root'/outputs/tables"
+local outputs_dir   "`project_root'/outputs"
+local part1_dir     "`outputs_dir'/part1"
+local table_dir     "`part1_dir'/tables"
+capture mkdir "`outputs_dir'"
+capture mkdir "`part1_dir'"
 capture mkdir "`table_dir'"
 
 capture confirm file "`processed_dir'/part1_clean_prices.dta"

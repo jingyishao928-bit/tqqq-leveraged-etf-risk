@@ -184,12 +184,28 @@ conversion, path dependence, the simulated NAV floor, uncapped short losses,
 and the positive-loss VaR/ES convention. `test_stata_exports.py` adds two tests
 that require every tracked CSV to have a readable, same-sized `.dta` copy and
 that verify the analysis date variable is stored correctly. The current suite
-therefore contains fourteen tests in total.
+contains fourteen tests for the data and existing conventions.
+
+`test_part1_analysis.py` adds six tests for the runnable Part 1 analysis:
+
+| Test | What it protects |
+|---|---|
+| `test_descriptive_units_and_sample_sd` | Percentage conversion, arithmetic mean and sample SD with a known small example |
+| `test_known_ols_and_target_gap_are_distinct` | Recovery of known intercept/slope, R-squared and the distinction between fitted residual and fixed-target gap |
+| `test_reject_degenerate_regression_and_invalid_leverage` | Clear failure for constant series or invalid positive-target leverage |
+| `test_validate_dates_returns_and_flags_without_silent_dropping` | Invalid dates, duplicate/order errors, missing/nonfinite/impossible returns and invalid flags cannot be silently ignored |
+| `test_configured_window_and_review_observations_are_retained` | Inclusive date filtering, minimum sample length and preservation of flagged rows |
+| `test_pipeline_exports_matching_dates_and_preserves_input` | Two numeric CSV/DTA table pairs, actual date formats, PNG creation and unchanged input bytes |
+
+The complete suite contains twenty tests. The analysis export helper also
+checks every generated CSV/DTA round trip for names, values, dates and text.
 
 Run all tests from the repository root:
 
 ```bash
 python3 -m unittest discover -s tests -v
+python outputs/part1/analyze_part1.py
+python scripts/export_part1_stata.py --check-only
 ```
 
 Passing tests establish structural consistency with the reviewed snapshot.
