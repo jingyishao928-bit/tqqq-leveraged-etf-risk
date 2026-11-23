@@ -1,0 +1,31 @@
+project:
+  name: rmsc5003-topic10-leveraged-etf
+  trading_days_per_year: 252
+  random_seed: 42
+
+products:
+  benchmark: QQQ
+  bull_leveraged: TQQQ
+  bear_leveraged: SQQQ
+  bull_beta: 3.0
+  bear_beta: -3.0
+
+data:
+  start_date: "2019-01-01"
+  end_date: null
+  price_field: adjusted_close
+  processed_file: data/processed/clean_returns.csv
+
+risk:
+  confidence_levels: [0.95, 0.99]
+  horizon_days: [1, 10, 21]
+  losses_are_positive: true
+
+simulation:
+  paths: 10000
+  nav_floor: 0.0
+
+backtest:
+  estimation_window: 500
+  horizon_days: 1
+

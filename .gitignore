@@ -1,0 +1,31 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.idea/
+.vscode/
+.env
+*.key
+*.pem
+
+# Temporary and cache files
+tmp/
+cache/
+*.log
+
+# Keep directory placeholders, but do not commit unreviewed downloads.
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/metadata/*
+!data/metadata/.gitkeep
+
+# Generated outputs are reviewed before being force-added for a release.
+outputs/figures/*
+!outputs/figures/.gitkeep
+outputs/tables/*
+!outputs/tables/.gitkeep
+
