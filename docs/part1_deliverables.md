@@ -332,14 +332,15 @@ Four frozen raw inputs
 **Conclusion:** strong co-movement and sensitivity close to 3x support the
 broad mechanism; they do not prove exact tracking or a valid risk model.
 
-**Chart specification — to generate for the slides**
+**Chart specification — generated and ready for slide selection**
 
 - Scatter: x = NDX daily simple return; y = TQQQ daily adjusted-price return.
 - Include both `y = 3x` and the fitted OLS line with distinct styles.
 - Show percent axes, `n = 1,983`, sample dates and the source/price-field caveat.
 - Keep and label the two flagged dates; do not omit them to improve appearance.
-- Suggested new output: `outputs/part1/figures/fig_part1_daily_leverage_check.png`.
-  This chart is planned, not an existing cleaning-script output.
+- Output: `outputs/part1/figures/fig_part1_daily_leverage_check.png`.
+  Regenerate with `python scripts/analyze_part1.py`; this is a separate
+  analysis step after cleaning.
 
 ```text
 Regression:        R_t = alpha + beta x r_t + epsilon_t
@@ -399,8 +400,8 @@ Standard deviation uses `n - 1`. Each series has 1,983 observations over
 | Data explanation and audit | `docs/data_guide.md`, `data/metadata/part1_*.csv` | Available; source, dictionary, quality and checksums |
 | Cleaning workflows | Python/Stata paths in section 5 | Available |
 | Idealized replication diagnostic | `outputs/part1/figures/fig_part1_replication.png`; `outputs/part1/tables/table_part1_replication.csv` | Available; detailed interpretation handed to Part 2 |
-| Descriptive/OLS results | Tables in this document; recipe below | Computed from current data; refresh after snapshot changes |
-| Daily scatter and standalone table exports | Suggested outputs in section 5 | To generate; not claimed to exist |
+| Descriptive/OLS results | Tables in this document; runnable script in section 5 | Computed from current data; refresh after snapshot changes |
+| Daily scatter and standalone table exports | `fig_part1_daily_leverage_check.png`; `table_part1_descriptive_statistics.*`; `table_part1_daily_leverage_check.*` under `outputs/part1/` | Available; two CSV/DTA pairs and a 300-dpi PNG |
 | Five slides and rehearsal | Section 2 blueprint | To prepare |
 | Dated product evidence | Section 7 sources and exact holdings/factsheet captures | Sources checked; save evidence used in final slides |
 
@@ -460,7 +461,7 @@ Run from the repository root. Use frozen inputs when preparing slides;
 a live refresh is a separate reviewed data update.
 
 All Part 1 generated figures and tables belong to `outputs/part1/`, with
-`figures/` and `tables/` subdirectories. The replication script reads this
+`figures/` and `tables/` subdirectories. The analysis and replication scripts read this
 root from `part1.output_dir` in `config/project.yaml`. Parts 2-5 have separate
 reserved folders; see [output layout](../outputs/README.md).
 
@@ -472,6 +473,9 @@ python scripts/01_download_part1_data.py --clean-existing-raw
 
 # Existing idealized replication diagnostic, mainly used by Part 2.
 python scripts/02_part1_replication.py
+
+# Descriptive table, daily OLS table and daily-leverage scatter.
+python scripts/analyze_part1.py
 
 # Rebuild corresponding Stata copies after an intentional output refresh.
 python scripts/export_part1_stata.py
@@ -486,77 +490,76 @@ python scripts/export_part1_stata.py --check-only
 do "stata/run_part1_pipeline.do" "`c(pwd)'"
 ```
 
-### Python recipe: descriptive table, OLS and proposed daily scatter
+### Runnable Python analysis: three outputs in one command
 
-Running this recipe creates **new presentation outputs**, leaving inputs
-unchanged. CSV exports receive same-folder DTA copies. These files are not
-claimed to exist before the recipe is run.
+The former inline recipe is now
+[`scripts/analyze_part1.py`](../scripts/analyze_part1.py). Install the existing
+dependencies once, then run it from the repository root:
 
-```python
-from pathlib import Path
-import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
-import numpy as np
-import pandas as pd
-
-d = pd.read_csv("data/processed/clean_returns.csv", parse_dates=["date"])
-assets = ["tqqq", "qqq", "ndx", "sqqq"]
-cols = [f"{a}_simple_return" for a in assets]
-assert d.date.is_unique and d.date.is_monotonic_increasing
-assert np.isfinite(d[cols].to_numpy()).all()
-tables, figures = Path("outputs/part1/tables"), Path("outputs/part1/figures")
-tables.mkdir(parents=True, exist_ok=True)
-figures.mkdir(parents=True, exist_ok=True)
-stats = pd.DataFrame({
-    "asset": [a.upper() for a in assets],
-    "observations": [d[c].count() for c in cols],
-    "mean_daily_pct": [100*d[c].mean() for c in cols],
-    "daily_sd_pct": [100*d[c].std(ddof=1) for c in cols],
-    "min_daily_pct": [100*d[c].min() for c in cols],
-    "max_daily_pct": [100*d[c].max() for c in cols],
-})
-x, y = d.ndx_simple_return.to_numpy(), d.tqqq_simple_return.to_numpy()
-alpha, beta = np.linalg.lstsq(
-    np.column_stack([np.ones(len(x)), x]), y, rcond=None
-)[0]
-e = y - (alpha + beta*x)
-r2 = 1 - np.sum(e**2)/np.sum((y-y.mean())**2)
-checks = pd.DataFrame({
-    "metric": ["intercept_daily_decimal", "slope", "r_squared",
-               "correlation", "mean_fixed_3x_gap_decimal"],
-    "value": [alpha, beta, r2, np.corrcoef(x, y)[0, 1], np.mean(y-3*x)],
-})
-for name, table in [("table_part1_descriptive_statistics", stats),
-                    ("table_part1_daily_leverage_check", checks)]:
-    table.to_csv(tables/f"{name}.csv", index=False)
-    table.to_stata(tables/f"{name}.dta", write_index=False, version=118)
-fig, ax = plt.subplots(figsize=(8, 5))
-ax.scatter(x, y, s=10, alpha=0.35, color="#416788", label="Daily observations")
-grid = np.linspace(x.min(), x.max(), 200)
-ax.plot(grid, 3*grid, "--", color="#9b5a30", label="Daily target: y = 3x")
-ax.plot(grid, alpha + beta*grid, color="#173b57", label=f"OLS: slope={beta:.4f}")
-for day, offset in [("2020-03-16", (8, 12)), ("2025-04-09", (-82, -18))]:
-    row = d.loc[d.date.eq(pd.Timestamp(day))]
-    if len(row) == 1:
-        ax.annotate(day, (row.ndx_simple_return.iloc[0],
-                          row.tqqq_simple_return.iloc[0]),
-                    xytext=offset, textcoords="offset points", fontsize=9)
-ax.set(xlabel="NDX daily simple return",
-       ylabel="TQQQ daily adjusted-price return",
-       title="Daily leverage diagnostic: market prices, not fund NAV")
-ax.xaxis.set_major_formatter(PercentFormatter(1))
-ax.yaxis.set_major_formatter(PercentFormatter(1))
-ax.grid(alpha=0.2)
-ax.legend(fontsize=9)
-fig.text(0.10, 0.02,
-         f"{d.date.min():%Y-%m-%d} to {d.date.max():%Y-%m-%d}; n={len(d):,}; "
-         "Yahoo Finance; ETF adjusted close vs NDX close.", fontsize=8)
-fig.tight_layout(rect=(0, 0.05, 1, 1))
-fig.savefig(figures/"fig_part1_daily_leverage_check.png", dpi=200)
-plt.close(fig)
-print(stats.to_string(index=False))
-print(checks.to_string(index=False))
+```bash
+python -m pip install -r requirements.txt
+python scripts/analyze_part1.py
 ```
+
+It reads `data.processed_file` and the Part 1 date window, leverage and
+output root from `config/project.yaml`. It performs no live download and
+does not change the raw or processed inputs. Rerunning replaces only its
+five named result files:
+
+```text
+outputs/part1/
+  tables/
+    table_part1_descriptive_statistics.csv
+    table_part1_descriptive_statistics.dta
+    table_part1_daily_leverage_check.csv
+    table_part1_daily_leverage_check.dta
+  figures/
+    fig_part1_daily_leverage_check.png
+```
+
+**Step 1 — Check and select the input / 检查及选样**
+
+The script requires unique ascending ISO dates, all four finite daily
+simple-return columns and valid review flags. Positive-price returns must
+exceed -100%. It rejects invalid input instead of dropping/filling rows.
+The configured start/end dates are inclusive and the selected sample needs
+at least three observations. Flagged stress observations remain in the
+sample and are labelled on the plot. The two endpoints in the tables are
+the actual selected dates, not merely the requested calendar dates.
+
+**Step 2 — Describe daily returns / 描述统计**
+
+The first table has one row each for TQQQ, QQQ, NDX and SQQQ. Columns are
+`asset`, `observations`, `mean_daily_pct`, `daily_sd_pct`, `min_daily_pct`,
+`max_daily_pct`, `analysis_start` and `analysis_end`. Percent columns use
+`1 = 1%`; SD is the sample SD with `ddof=1`. These are daily arithmetic
+statistics, not annualized statistics or compounded growth rates.
+
+**Step 3 — Fit the daily relation / 日度回归**
+
+Use decimal simple returns to fit `R_TQQQ = alpha + beta*r_NDX + residual`
+with an intercept. The second table has `metric`, numeric `value`, `unit`
+and actual analysis-date columns. It reports count, target leverage,
+intercept, slope, R-squared, correlation, and the mean/sample SD of
+`R_TQQQ - leverage*r_NDX`. Multiply decimal return metrics by `100` for
+percent or `10,000` for basis points. Keep the fitted residual separate
+from the fixed-target gap. No hypothesis-test p-values are reported.
+
+**Step 4 — Export and plot / 导出与画图**
+
+Both CSVs preserve numerical precision and receive same-folder DTA copies
+using the shared Stata exporter, which verifies names, values and dates on
+read-back. The 300-dpi scatter plots all selected observations, the ideal
+daily target and fitted line, with percent axes, flagged dates, source and
+price-field limitations. The console also prints both tables.
+
+中文：先看描述表的均值、波动及极端值，了解数据尺度；再看回归斜率是否接近 3，
+结合截距、固定目标偏差和散点图解释实际差异。高 R-squared 代表样本内拟合好，
+不能推出精确跟踪、截距就是管理费，或者模型可以通过样本外回测。
+
+For a disposable trial, add `--output-dir /path/to/trial-results`. A custom
+YAML may be supplied with `--config /path/to/project.yaml`; relative
+data/output paths inside that YAML still resolve from the repository root.
 
 ### Stata inspection and daily OLS
 
@@ -599,7 +602,8 @@ for formats and [Data Guide](data_guide.md) for loading data in R or Excel.
 - [ ] Five readable slides and a timed rehearsal at approximately 3.5 minutes.
 - [ ] Presenter's own full-name introduction using the team's agreed format.
 - [ ] Dated issuer/holdings evidence and source footers.
-- [ ] Daily scatter and descriptive-statistics table with readable units.
+- [x] Generated daily scatter and descriptive/OLS tables with readable units;
+  choose the final slide placement during rehearsal.
 - [ ] Canonical CSV/DTA, variable dictionary and source/quality metadata.
 - [ ] Code entry points and a record of successful snapshot checks.
 - [ ] Visible limitations: market price versus NAV; ETF adjusted versus index price return.

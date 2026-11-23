@@ -41,6 +41,12 @@ two replication DTA tables. Its cleaning logic matches the Python workflow:
 5. Calculate simple and log returns from adjacent trading observations.
 6. Retain large moves and mark them with `manual_review_flag`.
 
+The separate Part 1 descriptive/OLS analysis is run with
+`python scripts/analyze_part1.py`. It writes its CSV tables and corresponding
+verified DTA files together; these tables are not produced by the native
+Stata cleaning/replication route above. The daily-regression Stata inspection
+commands are documented in `part1_deliverables.md`.
+
 ## Export conventions
 
 - Files use Stata format version 118, readable by Stata 14 and later,
@@ -61,7 +67,7 @@ two replication DTA tables. Its cleaning logic matches the Python workflow:
 
 ## Included files
 
-The current export set contains 14 files:
+The current export set contains 16 files:
 
 ```text
 data/metadata/part1_checksums.dta
@@ -78,6 +84,8 @@ data/raw/SQQQ_raw.dta
 data/raw/TQQQ_raw.dta
 outputs/part1/tables/part1_replication_path.dta
 outputs/part1/tables/table_part1_replication.dta
+outputs/part1/tables/table_part1_descriptive_statistics.dta
+outputs/part1/tables/table_part1_daily_leverage_check.dta
 ```
 
 In Stata, open a file from the repository root with, for example:

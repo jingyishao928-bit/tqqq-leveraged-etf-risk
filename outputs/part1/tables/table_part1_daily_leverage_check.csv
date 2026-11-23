@@ -1,0 +1,9 @@
+metric,value,unit,analysis_start,analysis_end
+observations,1983.0,count,2019-01-03,2026-11-20
+target_leverage,3.0,multiple,2019-01-03,2026-11-20
+intercept_daily_decimal,-0.00022062039049984983,daily decimal return,2019-01-03,2026-11-20
+slope,2.92132258702298,dimensionless,2019-01-03,2026-11-20
+r_squared,0.997842749296249,fraction,2019-01-03,2026-11-20
+correlation,0.9989207923034983,dimensionless,2019-01-03,2026-11-20
+mean_fixed_target_gap_decimal,-0.00028427701620053293,daily decimal return,2019-01-03,2026-11-20
+sd_fixed_target_gap_decimal,0.0024098093962842833,daily decimal return,2019-01-03,2026-11-20

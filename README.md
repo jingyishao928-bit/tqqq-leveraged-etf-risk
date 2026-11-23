@@ -80,6 +80,37 @@ date-range, file-selection, variable, formula, cleaning, quality-control and
 usage guide. See `docs/part1_data_notes.md` for the shorter methodological
 narrative and `docs/part1_deliverables.md` for the five-slide product, data and daily-compounding plan.
 
+## Run the Part 1 analysis
+
+After setup, run this single command from the repository root:
+
+```bash
+python scripts/analyze_part1.py
+```
+
+This runnable script reads the frozen canonical CSV and generates:
+
+- [Descriptive statistics](outputs/part1/tables/table_part1_descriptive_statistics.csv)
+  for TQQQ, QQQ, NDX and SQQQ: count, daily mean, sample SD, minimum and
+  maximum, with returns expressed in percent.
+- [Daily OLS results](outputs/part1/tables/table_part1_daily_leverage_check.csv)
+  for `TQQQ = intercept + slope * NDX + residual`: coefficients, R-squared,
+  correlation and fixed-target gap summaries, with explicit units.
+- [Daily-leverage scatter](outputs/part1/figures/fig_part1_daily_leverage_check.png)
+  with the observations, the ideal daily `y = 3x` target, fitted OLS line
+  and retained review-date labels (300-dpi PNG).
+
+Both CSV tables have same-folder DTA copies, verified immediately after
+export. Both tables and the plot use the same configured sample. No live
+download occurs and input data are unchanged. Settings come from
+`config/project.yaml`: `data.processed_file` and the Part 1 dates, leverage
+and output root. An optional `--output-dir /path/to/results` sends a trial
+run to another location.
+
+中文：安装依赖后，一条命令即可重建三类分析产出；脚本不需要手动复制粘贴代码。
+均值和标准差是日度口径，回归系数用小数收益计算。散点图是市场收益的描述性检查，
+不能直接当成官方 NAV 跟踪检验或样本外回测。
+
 ## Team ownership
 
 Generated results are grouped by presentation part under `outputs/part1/`
