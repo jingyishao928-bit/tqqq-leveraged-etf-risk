@@ -78,7 +78,7 @@ do "stata/run_part1_pipeline.do" "`c(pwd)'"
 Start with [`docs/data_guide.md`](docs/data_guide.md) for the complete source,
 date-range, file-selection, variable, formula, cleaning, quality-control and
 usage guide. See `docs/part1_data_notes.md` for the shorter methodological
-narrative and `docs/part1_deliverables.md` for the four-slide handoff.
+narrative and `docs/part1_deliverables.md` for the five-slide product, data and daily-compounding plan.
 
 ## Team ownership
 
