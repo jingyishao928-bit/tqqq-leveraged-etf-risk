@@ -204,7 +204,7 @@ Run all tests from the repository root:
 
 ```bash
 python3 -m unittest discover -s tests -v
-python scripts/analyze_part1.py
+python outputs/part1/analyze_part1.py
 python scripts/export_part1_stata.py --check-only
 ```
 

@@ -27,3 +27,5 @@ data/metadata/*
 outputs/part[1-5]/**
 !outputs/part[1-5]/**/
 !outputs/part[1-5]/**/.gitkeep
+# Part 1 analysis source is stored alongside its reviewed results.
+!outputs/part1/analyze_part1.py

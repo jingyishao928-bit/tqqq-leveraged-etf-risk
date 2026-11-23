@@ -85,8 +85,13 @@ narrative and `docs/part1_deliverables.md` for the five-slide product, data and 
 After setup, run this single command from the repository root:
 
 ```bash
-python scripts/analyze_part1.py
+python outputs/part1/analyze_part1.py
 ```
+
+The full Python source is stored alongside its results in
+[`outputs/part1/analyze_part1.py`](outputs/part1/analyze_part1.py). The
+original `python scripts/analyze_part1.py` command remains a compatibility
+entry point. Both commands run the same analysis code.
 
 This runnable script reads the frozen canonical CSV and generates:
 

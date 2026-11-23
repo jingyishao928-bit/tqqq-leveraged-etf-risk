@@ -6,6 +6,7 @@ data, cleaned inputs and audit metadata stay under `data/`.
 ```text
 outputs/
   part1/
+    analyze_part1.py         # full Python analysis source
     figures/
       fig_part1_replication.png
       fig_part1_daily_leverage_check.png
@@ -44,10 +45,15 @@ and documentation use the new layout. The Stata export helper discovers
 tracked CSVs automatically, so it follows the moved tables without a
 separate file list.
 
-Run `python scripts/analyze_part1.py` from the repository root to regenerate
+Run `python outputs/part1/analyze_part1.py` from the repository root to regenerate
 the descriptive table, daily OLS table and daily-leverage scatter. This also
 creates and verifies the two same-folder DTA exports. It does not download
 data or regenerate the separate replication-path diagnostic.
+
+中文：完整 Python 分析代码也在 `part1/` 内，与 `tables/` 和 `figures/`
+放在一起。在本地完整仓库的 `outputs/part1/` 文件夹内，也可以直接运行
+`python analyze_part1.py`。脚本会自动定位仓库根目录，读取共享配置和清洗数据。
+`scripts/analyze_part1.py` 保留为旧命令入口，调用的是这里的同一份代码。
 
 The descriptive table stores daily returns in percent (`1` means `1%`);
 the regression table labels decimal-return metrics and dimensionless

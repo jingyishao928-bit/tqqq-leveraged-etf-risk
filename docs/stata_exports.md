@@ -42,7 +42,7 @@ two replication DTA tables. Its cleaning logic matches the Python workflow:
 6. Retain large moves and mark them with `manual_review_flag`.
 
 The separate Part 1 descriptive/OLS analysis is run with
-`python scripts/analyze_part1.py`. It writes its CSV tables and corresponding
+`python outputs/part1/analyze_part1.py`. It writes its CSV tables and corresponding
 verified DTA files together; these tables are not produced by the native
 Stata cleaning/replication route above. The daily-regression Stata inspection
 commands are documented in `part1_deliverables.md`.

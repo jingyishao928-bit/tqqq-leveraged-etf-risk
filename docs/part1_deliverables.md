@@ -339,7 +339,7 @@ broad mechanism; they do not prove exact tracking or a valid risk model.
 - Show percent axes, `n = 1,983`, sample dates and the source/price-field caveat.
 - Keep and label the two flagged dates; do not omit them to improve appearance.
 - Output: `outputs/part1/figures/fig_part1_daily_leverage_check.png`.
-  Regenerate with `python scripts/analyze_part1.py`; this is a separate
+  Regenerate with `python outputs/part1/analyze_part1.py`; this is a separate
   analysis step after cleaning.
 
 ```text
@@ -475,7 +475,7 @@ python scripts/01_download_part1_data.py --clean-existing-raw
 python scripts/02_part1_replication.py
 
 # Descriptive table, daily OLS table and daily-leverage scatter.
-python scripts/analyze_part1.py
+python outputs/part1/analyze_part1.py
 
 # Rebuild corresponding Stata copies after an intentional output refresh.
 python scripts/export_part1_stata.py
@@ -493,12 +493,13 @@ do "stata/run_part1_pipeline.do" "`c(pwd)'"
 ### Runnable Python analysis: three outputs in one command
 
 The former inline recipe is now
-[`scripts/analyze_part1.py`](../scripts/analyze_part1.py). Install the existing
+[`outputs/part1/analyze_part1.py`](../outputs/part1/analyze_part1.py), stored
+with the Part 1 result folders. Install the existing
 dependencies once, then run it from the repository root:
 
 ```bash
 python -m pip install -r requirements.txt
-python scripts/analyze_part1.py
+python outputs/part1/analyze_part1.py
 ```
 
 It reads `data.processed_file` and the Part 1 date window, leverage and
@@ -508,6 +509,7 @@ five named result files:
 
 ```text
 outputs/part1/
+  analyze_part1.py
   tables/
     table_part1_descriptive_statistics.csv
     table_part1_descriptive_statistics.dta
@@ -516,6 +518,12 @@ outputs/part1/
   figures/
     fig_part1_daily_leverage_check.png
 ```
+
+The full analysis code lives in the Part 1 folder. The previous
+`python scripts/analyze_part1.py` command still works through a small
+compatibility entry point. From inside `outputs/part1/`, run
+`python analyze_part1.py`; shared inputs/configuration are located
+automatically in the complete repository.
 
 **Step 1 — Check and select the input / 检查及选样**
 
