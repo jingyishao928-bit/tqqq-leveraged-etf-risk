@@ -64,6 +64,17 @@ python scripts/01_download_part1_data.py
 python scripts/02_part1_replication.py
 ```
 
+To rerun only the cleaning step from the frozen raw CSV files, or to use the
+equivalent Stata workflow, run:
+
+```bash
+python scripts/01_download_part1_data.py --clean-existing-raw
+```
+
+```stata
+do "stata/run_part1_pipeline.do" "`c(pwd)'"
+```
+
 See `docs/part1_data_notes.md` for sources and cleaning decisions and
 `docs/part1_deliverables.md` for the four-slide handoff.
 

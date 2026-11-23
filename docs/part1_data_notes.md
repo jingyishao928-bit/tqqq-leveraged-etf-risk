@@ -45,6 +45,29 @@ factsheet, not inferred from the price CSV.
    automatically: 2020-03-16 and 2025-04-09 are retained as plausible market
    observations in both the leveraged and inverse ETF series.
 
+## Reproducible cleaning code
+
+The primary CSV workflow is implemented in
+`scripts/01_download_part1_data.py`. To rebuild the processed CSV files from
+the frozen raw CSV files without downloading new observations or changing the
+source manifest, run:
+
+```bash
+python scripts/01_download_part1_data.py --clean-existing-raw
+```
+
+The Stata workflow is implemented in `stata/01_clean_part1_data.do` and
+`stata/02_part1_replication.do`. It applies the same price fields, common-date
+join, date range, return definitions and manual-review thresholds to the raw
+DTA files. From the repository root, run:
+
+```stata
+do "stata/run_part1_pipeline.do" "`c(pwd)'"
+```
+
+The Python CSV files remain the reviewed source of truth. The Stata workflow
+provides a second, executable route for lab work and code submission.
+
 ## The Part 1 replication diagnostic
 
 The idealized daily-reset path is initialized at the first cleaned TQQQ price

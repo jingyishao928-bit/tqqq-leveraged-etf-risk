@@ -21,6 +21,26 @@ Verify existing files without rewriting them with:
 python scripts/export_part1_stata.py --check-only
 ```
 
+## Stata cleaning code
+
+The Python export command above converts every tracked CSV to DTA and checks
+the conversion. The repository also contains a native Stata analysis route:
+
+```stata
+do "stata/run_part1_pipeline.do" "`c(pwd)'"
+```
+
+This route reads the frozen raw DTA files, rebuilds
+`part1_clean_prices.dta` and `part1_clean_returns.dta`, and then rebuilds the
+two replication DTA tables. Its cleaning logic matches the Python workflow:
+
+1. Use adjusted close for TQQQ, SQQQ and QQQ and close for NDX.
+2. Remove duplicate dates, sort ascending and keep common trading dates.
+3. Restrict the sample to 2019-01-01 through 2026-11-20.
+4. Reject missing or non-positive retained prices.
+5. Calculate simple and log returns from adjacent trading observations.
+6. Retain large moves and mark them with `manual_review_flag`.
+
 ## Export conventions
 
 - Files use Stata format version 118, readable by Stata 14 and later,

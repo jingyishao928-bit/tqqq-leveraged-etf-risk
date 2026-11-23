@@ -9,7 +9,7 @@ the lower-case schema documented in ``docs/data_dictionary.md``.
 
 from __future__ import annotations
 
-import csv
+import argparse
 import hashlib
 import json
 import subprocess
@@ -189,6 +189,19 @@ def download_raw() -> tuple[dict[str, pd.DataFrame], dict[str, str]]:
     return frames, urls
 
 
+def load_existing_raw() -> dict[str, pd.DataFrame]:
+    """Load the frozen raw CSV files without making a network request."""
+    frames: dict[str, pd.DataFrame] = {}
+    for label in SYMBOLS:
+        path = RAW_DIR / f"{label}_raw.csv"
+        if not path.exists():
+            raise FileNotFoundError(f"Missing raw CSV file: {path}")
+        frame = pd.read_csv(path, parse_dates=["Date"])
+        frame = frame.drop_duplicates("Date").sort_values("Date").reset_index(drop=True)
+        frames[label] = frame
+    return frames
+
+
 def make_processed(frames: dict[str, pd.DataFrame]) -> tuple[pd.DataFrame, pd.DataFrame]:
     selected = {}
     for label, frame in frames.items():
@@ -277,6 +290,50 @@ def make_canonical_returns(returns: pd.DataFrame) -> pd.DataFrame:
     return returns[columns].rename(columns=rename_map)
 
 
+def write_csv_if_changed(
+    frame: pd.DataFrame, path: Path, date_format: str | None = None
+) -> bool:
+    """Write a CSV only when its tabular values have materially changed."""
+    candidate = frame.copy()
+    for column in candidate.select_dtypes(include=["datetime", "datetimetz"]):
+        candidate[column] = candidate[column].dt.strftime(date_format or "%Y-%m-%d")
+
+    if path.exists():
+        existing = pd.read_csv(path)
+        same_schema = list(existing.columns) == list(candidate.columns)
+        if same_schema and existing.shape == candidate.shape:
+            equivalent = True
+            for column in candidate.columns:
+                left = candidate[column]
+                right = existing[column]
+                both_numeric = pd.api.types.is_numeric_dtype(
+                    left
+                ) and pd.api.types.is_numeric_dtype(right)
+                if both_numeric:
+                    if not np.allclose(
+                        left.to_numpy(dtype=float),
+                        right.to_numpy(dtype=float),
+                        rtol=1e-12,
+                        atol=1e-15,
+                        equal_nan=True,
+                    ):
+                        equivalent = False
+                        break
+                else:
+                    left_text = left.fillna("").astype(str).reset_index(drop=True)
+                    right_text = right.fillna("").astype(str).reset_index(drop=True)
+                    if not left_text.equals(right_text):
+                        equivalent = False
+                        break
+            if equivalent:
+                print(f"Unchanged: {path.relative_to(ROOT)}")
+                return False
+
+    frame.to_csv(path, index=False, date_format=date_format)
+    print(f"Updated: {path.relative_to(ROOT)}")
+    return True
+
+
 def write_quality_table(prices: pd.DataFrame, returns: pd.DataFrame) -> None:
     checks = [
         ("price_rows", len(prices)),
@@ -287,10 +344,8 @@ def write_quality_table(prices: pd.DataFrame, returns: pd.DataFrame) -> None:
         ("missing_price_cells", int(prices.isna().sum().sum())),
         ("manual_review_rows", int(returns["manual_review_flag"].sum())),
     ]
-    with (METADATA_DIR / "part1_data_quality.csv").open("w", newline="") as handle:
-        writer = csv.writer(handle, lineterminator="\n")
-        writer.writerow(["check", "value"])
-        writer.writerows(checks)
+    quality = pd.DataFrame(checks, columns=["check", "value"])
+    write_csv_if_changed(quality, METADATA_DIR / "part1_data_quality.csv")
 
 
 def sha256_file(path: Path) -> str:
@@ -324,49 +379,70 @@ def write_checksum_manifest() -> None:
         }
         for path in paths
     ]
-    pd.DataFrame(rows).to_csv(
-        METADATA_DIR / "part1_checksums.csv", index=False
-    )
+    write_csv_if_changed(pd.DataFrame(rows), METADATA_DIR / "part1_checksums.csv")
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--clean-existing-raw",
+        action="store_true",
+        help=(
+            "rebuild the processed CSV files from the frozen raw CSV files "
+            "without downloading data or changing source metadata"
+        ),
+    )
+    args = parser.parse_args()
+
     for directory in [RAW_DIR, PROCESSED_DIR, METADATA_DIR]:
         directory.mkdir(parents=True, exist_ok=True)
-    frames, _urls = download_raw()
+    if args.clean_existing_raw:
+        frames = load_existing_raw()
+        downloaded = False
+    else:
+        frames, _urls = download_raw()
+        downloaded = True
+
     prices, returns = make_processed(frames)
     canonical_returns = make_canonical_returns(returns)
-    prices.to_csv(PRICES_FILE, index=False, date_format="%Y-%m-%d")
-    returns.to_csv(RETURNS_FILE, index=False, date_format="%Y-%m-%d")
-    canonical_returns.to_csv(
-        CANONICAL_RETURNS_FILE, index=False, date_format="%Y-%m-%d"
+    write_csv_if_changed(prices, PRICES_FILE, date_format="%Y-%m-%d")
+    write_csv_if_changed(returns, RETURNS_FILE, date_format="%Y-%m-%d")
+    write_csv_if_changed(
+        canonical_returns,
+        CANONICAL_RETURNS_FILE,
+        date_format="%Y-%m-%d",
     )
     write_quality_table(prices, returns)
 
-    downloaded_at = datetime.now(timezone.utc).isoformat()
-    manifest = pd.DataFrame(
-        [
-            {
-                "ticker": label,
-                "source": "Yahoo Finance chart API",
-                "source_url": SOURCE_URLS[label],
-                "downloaded_at_utc": downloaded_at,
-                "raw_start_requested": RAW_START,
-                "raw_end_requested": ANALYSIS_END,
-                "analysis_start": ANALYSIS_START,
-                "analysis_end": ANALYSIS_END,
-                "field_used": "Adj Close" if label in ETF_LABELS else "Close",
-                "adjustment_note": (
-                    "Adjusted Close used for ETF total-return series; "
-                    "downloaded through Yahoo Finance chart endpoint in sub-periods"
-                    if label in ETF_LABELS
-                    else "Close used for Nasdaq-100 index series; downloaded through "
-                    "Yahoo Finance chart endpoint in sub-periods"
-                ),
-            }
-            for label in SYMBOLS
-        ]
-    )
-    manifest.to_csv(METADATA_DIR / "part1_source_manifest.csv", index=False)
+    if downloaded:
+        downloaded_at = datetime.now(timezone.utc).isoformat()
+        manifest = pd.DataFrame(
+            [
+                {
+                    "ticker": label,
+                    "source": "Yahoo Finance chart API",
+                    "source_url": SOURCE_URLS[label],
+                    "downloaded_at_utc": downloaded_at,
+                    "raw_start_requested": RAW_START,
+                    "raw_end_requested": ANALYSIS_END,
+                    "analysis_start": ANALYSIS_START,
+                    "analysis_end": ANALYSIS_END,
+                    "field_used": "Adj Close" if label in ETF_LABELS else "Close",
+                    "adjustment_note": (
+                        "Adjusted Close used for ETF total-return series; "
+                        "downloaded through Yahoo Finance chart endpoint in sub-periods"
+                        if label in ETF_LABELS
+                        else "Close used for Nasdaq-100 index series; downloaded through "
+                        "Yahoo Finance chart endpoint in sub-periods"
+                    ),
+                }
+                for label in SYMBOLS
+            ]
+        )
+        write_csv_if_changed(
+            manifest,
+            METADATA_DIR / "part1_source_manifest.csv",
+        )
     write_checksum_manifest()
     print(f"Saved {len(prices):,} common price rows and {len(returns):,} return rows")
     print(f"Price range: {prices['Date'].min().date()} to {prices['Date'].max().date()}")
