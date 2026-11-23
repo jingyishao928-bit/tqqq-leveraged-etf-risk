@@ -1,0 +1,5 @@
+fact,value,source,accessed_on,notes
+daily_objective,3x daily performance of the Nasdaq-100 Index,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Before fees and expenses; this is a daily target, not a multi-day promise"
+inception_date,2010-02-09,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Verify against the latest factsheet before final submission"
+gross_expense_ratio,0.94%,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Current product-page snapshot"
+net_expense_ratio,0.78%,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Current product-page snapshot; check any waiver expiry in the latest prospectus"

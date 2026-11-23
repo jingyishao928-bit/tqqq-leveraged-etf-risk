@@ -16,6 +16,14 @@ data:
   price_field: adjusted_close
   processed_file: data/processed/clean_returns.csv
 
+part1:
+  raw_start_date: "2010-02-11"
+  analysis_start_date: "2019-01-01"
+  analysis_end_date: "2026-11-20"
+  leverage: 3.0
+  prices_file: data/processed/part1_clean_prices.csv
+  returns_file: data/processed/part1_clean_returns.csv
+
 risk:
   confidence_levels: [0.95, 0.99]
   horizon_days: [1, 10, 21]
@@ -28,4 +36,3 @@ simulation:
 backtest:
   estimation_window: 500
   horizon_days: 1
-
