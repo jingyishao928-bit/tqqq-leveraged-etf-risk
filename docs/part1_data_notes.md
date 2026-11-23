@@ -25,9 +25,10 @@ Historical observations were downloaded from Yahoo Finance historical data:
 The transport script uses Yahoo's chart endpoint in shorter date chunks. The
 raw CSV files are preserved, and
 `data/metadata/part1_source_manifest.csv` records the data fields, date windows
-and retrieval timestamp. Product facts such as TQQQ's daily objective, fees
-and inception date should be cited from ProShares' own product page or current
-factsheet, not inferred from the price CSV.
+and retrieval timestamp. QQQ, TQQQ and SQQQ product facts were separately
+verified from Invesco and ProShares materials accessed on 2026-11-24 and are
+stored in `data/metadata/part1_product_facts.csv`. Objectives, inception dates,
+fees and contractual waiver terms must not be inferred from the price CSV.
 
 ## Cleaning decisions
 

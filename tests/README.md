@@ -63,13 +63,12 @@ revisions from the provider.
 
 ### Product facts
 
-TQQQ's investment objective, inception date, and expense ratios are not
-inferred from Yahoo prices. They are recorded separately from the ProShares
-product page: <https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq>.
-The current metadata snapshot records a 3x daily objective, an inception date
-of 2010-02-09, a 0.94% gross expense ratio, and a 0.78% net expense ratio.
-These product facts should be rechecked against the latest factsheet or
-prospectus before the final presentation because fees and waivers can change.
+Product terms are not inferred from Yahoo prices. The separate metadata table
+records issuer-verified QQQ, TQQQ and SQQQ facts accessed on 2026-11-24,
+including formal names, benchmarks, investment objectives, inception dates and
+expense-ratio snapshots. It also records TQQQ's 0.16% contractual reduction
+and 2027-09-30 waiver expiry from the summary prospectus dated 2026-09-28.
+Fees and contractual terms can change after the recorded access date.
 
 ## 4. Files and their purposes
 
@@ -85,7 +84,7 @@ prospectus before the final presentation because fees and waivers can change.
 | `data/metadata/part1_source_manifest.csv` | Provider, URL, retrieval time, date windows, and field selection |
 | `data/metadata/part1_data_dictionary.csv` | Field definitions and formulas |
 | `data/metadata/part1_data_quality.csv` | Row counts, date limits, duplicates, missing values, and flags |
-| `data/metadata/part1_product_facts.csv` | Product facts sourced from ProShares |
+| `data/metadata/part1_product_facts.csv` | QQQ, TQQQ and SQQQ facts sourced from Invesco and ProShares |
 | `data/metadata/part1_checksums.csv` | SHA-256 fingerprints for detecting file changes |
 
 Every tracked CSV also has a same-folder Stata `.dta` export for lab use. The
@@ -167,7 +166,7 @@ an exact replication model for the fund.
 
 ## 8. Automated test coverage
 
-`test_part1_data.py` currently checks seven data properties:
+`test_part1_data.py` currently checks eight data and metadata properties:
 
 | Test | What it protects |
 |---|---|
@@ -178,13 +177,14 @@ an exact replication model for the fund.
 | `test_sqqq_raw_data_matches_the_frozen_source_window` | SQQQ has 4,221 unique ordered rows with the expected endpoints |
 | `test_canonical_returns_include_all_four_series` | The canonical table contains finite prices and returns for all four series |
 | `test_sqqq_daily_returns_track_the_inverse_ndx_direction` | SQQQ daily returns remain highly correlated with the idealized `-3 x NDX` target |
+| `test_product_facts_cover_qqq_tqqq_and_sqqq` | Product facts cover all three ETFs, use official HTTPS sources, share the stated access date and retain the reviewed names, objectives, fees and TQQQ waiver expiry |
 
 `test_financial_conventions.py` adds five tests for log-to-simple return
 conversion, path dependence, the simulated NAV floor, uncapped short losses,
 and the positive-loss VaR/ES convention. `test_stata_exports.py` adds two tests
 that require every tracked CSV to have a readable, same-sized `.dta` copy and
 that verify the analysis date variable is stored correctly. The current suite
-contains fourteen tests for the data and existing conventions.
+contains fifteen tests for the data, metadata and existing conventions.
 
 `test_part1_analysis.py` adds six tests for the runnable Part 1 analysis:
 
@@ -197,7 +197,7 @@ contains fourteen tests for the data and existing conventions.
 | `test_configured_window_and_review_observations_are_retained` | Inclusive date filtering, minimum sample length and preservation of flagged rows |
 | `test_pipeline_exports_matching_dates_and_preserves_input` | Two numeric CSV/DTA table pairs, actual date formats, PNG creation and unchanged input bytes |
 
-The complete suite contains twenty tests. The analysis export helper also
+The complete suite contains twenty-one tests. The analysis export helper also
 checks every generated CSV/DTA round trip for names, values, dates and text.
 
 Run all tests from the repository root:

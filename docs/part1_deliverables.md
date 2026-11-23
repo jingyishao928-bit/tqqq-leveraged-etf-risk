@@ -633,11 +633,12 @@ from the committed data, not these live pages.
 |---|---|---|
 | P1 | [ProShares TQQQ](https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq) | Objective, benchmark, inception and dated holdings |
 | P2 | [TQQQ summary prospectus, September 28, 2026](https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf) | Daily objective, fees, investment techniques and counterparty disclosures |
-| P3 | [Invesco QQQ](https://www.invesco.com/qqq-etf/en/home.html) | Investable Nasdaq-100 exposure; use current documents for terms |
+| P3 | [Invesco QQQ Trust, Series 1](https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html) | Formal name, inception date, total expense ratio and investable Nasdaq-100 exposure |
 | P4 | [ProShares SQQQ](https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq) | Separate daily -3x objective |
 | P5 | [SEC: Investor Bulletin — Exchange-Traded Funds](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-12) | ETF trading, APs, creation/redemption and premiums/discounts |
 | P6 | [SEC: Leveraged and Inverse ETFs — Investor Bulletin](https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-alerts/sec) | Daily reset and multi-day performance context |
 | P7 | [ProShares geared-investing FAQs](https://www.proshares.com/resources/faqs/geared-investing) | General daily-gearing, holding-period and cost explanations |
+| P8 | [SQQQ summary prospectus, September 28, 2026](https://www.proshares.com/globalassets/proshares/prospectuses/sqqq_summary_prospectus.pdf) | Inverse daily objective, fees, investment techniques and counterparty disclosures |
 | D1 | [Repository source manifest](../data/metadata/part1_source_manifest.csv) | Historical Yahoo pages, retrieval timestamp, sample and fields |
 | D2 | [Repository Data Guide](data_guide.md) | Data lineage, canonical variables, quality checks and limitations |
 
@@ -645,9 +646,11 @@ from the committed data, not these live pages.
 gross expense ratio and 0.78% after the stated waiver/reimbursement, with
 that arrangement through September 30, 2027. The fee table excludes
 transaction and financing costs. These are dated disclosures, not an all-in
-constant cost of leverage. [P2] Older product-fact metadata does not yet store
-this newer waiver-expiry detail; cite the prospectus when using it. This
-documentation-only update does not refresh that metadata.
+constant cost of leverage. [P2] The product-fact metadata now stores this
+waiver expiry together with the verified QQQ and SQQQ terms. SQQQ currently
+reports 0.94% gross and net; its prospectus describes a 0.95% expense cap
+through September 30, 2027, which does not create a current gross-to-net
+reduction. [P4, P8]
 
 If adding AUM, spreads, volume or holdings weights, record the exact date
 and source. Label current figures separately from the frozen return sample
