@@ -15,4 +15,9 @@ Each tracked CSV also has a same-folder Stata `.dta` copy for use in the lab.
 The CSV files remain the source of truth. See `docs/stata_exports.md` for the
 file list, conversion rules, Stata commands and rebuild instructions.
 
+The complete human-readable description of the Part 1 date ranges, sources,
+cleaning changes, flagged observations, replication diagnostic, automated test
+coverage, and update protocol is in
+[tests/README.md](../tests/README.md).
+
 Do not commit API keys, cookies, account identifiers, or unreviewed downloads. Small course datasets may be force-added after review so the instructor can reproduce the analysis without relying on a live data service.
