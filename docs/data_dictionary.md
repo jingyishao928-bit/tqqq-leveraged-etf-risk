@@ -1,5 +1,9 @@
 # Data Dictionary
 
+For units, raw-source fields, return interpretation, compatibility-file names,
+loading examples and cleaning lineage, see the full
+[`Data Guide`](data_guide.md).
+
 ## Canonical file
 
 `data/processed/clean_returns.csv`

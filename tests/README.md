@@ -204,7 +204,7 @@ appropriate.
 | Commit `e07760b` | Added the reviewed Part 1 download/cleaning pipeline, frozen raw files, processed files, metadata, replication outputs, and data tests |
 | PR #1 / merge `f944276` | Merged the Part 1 data workstream into `main` |
 | PR #2 / merge `d58ea33` | Added same-folder Stata exports, conversion documentation, and Stata export tests |
-| SQQQ data update | Added raw and cleaned SQQQ data, incorporated current provider revisions to ETF adjusted closes, and regenerated the canonical table, Stata exports, metadata, tests and replication outputs |
+| PR #5 / merge `69aa7a2` | Added raw and cleaned SQQQ data, incorporated current provider revisions to ETF adjusted closes, and regenerated the canonical table, Stata exports, metadata, tests and replication outputs |
 
 Future data refreshes should update the source manifest, quality summary, and
 checksums in the same commit as the raw and processed files. Any change to the

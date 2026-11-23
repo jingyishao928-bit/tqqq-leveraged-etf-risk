@@ -1,5 +1,15 @@
 # Data policy
 
+## Start here
+
+For a group-readable explanation of the four products, sources, date ranges,
+raw and clean variables, return formulas, extreme observations, file choices,
+Python/R/Stata/Excel examples and known limitations, read
+[`docs/data_guide.md`](../docs/data_guide.md).
+
+For most new analysis, use `processed/clean_returns.csv` or its same-folder
+Stata copy `processed/clean_returns.dta`. Do not edit the files under `raw/`.
+
 `raw/` stores frozen source extracts only after the group confirms the source terms and documents the retrieval. `processed/` stores reproducible analysis inputs. `metadata/` stores provenance records, dates, row counts, adjustment treatment, and checksums.
 
 The canonical processed dataset is `processed/clean_returns.csv`. Its schema is defined in `docs/data_dictionary.md`.
@@ -15,9 +25,8 @@ Each tracked CSV also has a same-folder Stata `.dta` copy for use in the lab.
 The CSV files remain the source of truth. See `docs/stata_exports.md` for the
 file list, conversion rules, Stata commands and rebuild instructions.
 
-The complete human-readable description of the Part 1 date ranges, sources,
-cleaning changes, flagged observations, replication diagnostic, automated test
-coverage, and update protocol is in
-[tests/README.md](../tests/README.md).
+The complete data reference is [`docs/data_guide.md`](../docs/data_guide.md).
+The automated-test coverage and snapshot change record are documented in
+[`tests/README.md`](../tests/README.md).
 
 Do not commit API keys, cookies, account identifiers, or unreviewed downloads. Small course datasets may be force-added after review so the instructor can reproduce the analysis without relying on a live data service.
