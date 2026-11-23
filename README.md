@@ -48,6 +48,21 @@ python scripts/06_run_backtest.py
 
 Scripts are scaffolds until their owners implement and test the corresponding modules. Do not present placeholder output as an empirical result.
 
+## Part 1 data status
+
+The reviewed TQQQ, QQQ and Nasdaq-100 source extracts and Part 1 mechanism
+check are available on the `feat/part1-data` workstream. The supplementary
+processed files are prefixed `part1_` because they do not yet contain SQQQ and
+therefore do not replace the canonical team data contract.
+
+```bash
+python scripts/01_download_part1_data.py
+python scripts/02_part1_replication.py
+```
+
+See `docs/part1_data_notes.md` for sources and cleaning decisions and
+`docs/part1_deliverables.md` for the four-slide handoff.
+
 ## Team ownership
 
 | Workstream | Main responsibility | Primary locations |
@@ -59,4 +74,3 @@ Scripts are scaffolds until their owners implement and test the corresponding mo
 | E | Backtesting, coverage tests and limits | `backtesting.py`, script 06 |
 
 Ownership means primary review responsibility, not exclusive permission to edit a file.
-

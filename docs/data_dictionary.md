@@ -24,3 +24,14 @@
 - Intermediate values retain full floating-point precision.
 - The data metadata identifies source, retrieval timestamp, sample dates, and adjustment method.
 
+## Part 1 supplementary files
+
+The committed Part 1 mechanism check predates the complete canonical file and
+uses TQQQ, QQQ and the Nasdaq-100 Index (`^NDX`). It is intentionally stored as
+`data/processed/part1_clean_returns.csv`; it must not be passed to code that
+expects the SQQQ columns in the canonical contract.
+
+Its detailed fields and formulas are recorded in
+`data/metadata/part1_data_dictionary.csv`. The source and quality records are
+`part1_source_manifest.csv`, `part1_data_quality.csv`, and
+`part1_checksums.csv` in the same metadata directory.

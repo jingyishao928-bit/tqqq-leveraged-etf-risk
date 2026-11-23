@@ -1,0 +1,8 @@
+check,value
+price_rows,1984
+return_rows,1983
+price_start,2019-01-02
+price_end,2026-11-20
+duplicate_dates,0
+missing_price_cells,0
+manual_review_rows,2
