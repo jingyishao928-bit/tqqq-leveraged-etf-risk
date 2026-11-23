@@ -29,7 +29,10 @@ python -m pip install -r requirements.txt
 
 ## Tests
 
-The repository includes standard-library tests for the financial conventions that must remain stable.
+The repository includes standard-library tests for the financial conventions
+and the reviewed Part 1 data snapshot. See
+[tests/README.md](tests/README.md) for the detailed data period, sources,
+transformations, quality checks, change record, and test coverage.
 
 ```bash
 python -m unittest discover -s tests -v
@@ -51,7 +54,7 @@ Scripts are scaffolds until their owners implement and test the corresponding mo
 ## Part 1 data status
 
 The reviewed TQQQ, QQQ and Nasdaq-100 source extracts and Part 1 mechanism
-check are available on the `feat/part1-data` workstream. The supplementary
+check are available on `main`. The supplementary
 processed files are prefixed `part1_` because they do not yet contain SQQQ and
 therefore do not replace the canonical team data contract.
 
