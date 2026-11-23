@@ -75,8 +75,10 @@ python scripts/01_download_part1_data.py --clean-existing-raw
 do "stata/run_part1_pipeline.do" "`c(pwd)'"
 ```
 
-See `docs/part1_data_notes.md` for sources and cleaning decisions and
-`docs/part1_deliverables.md` for the four-slide handoff.
+Start with [`docs/data_guide.md`](docs/data_guide.md) for the complete source,
+date-range, file-selection, variable, formula, cleaning, quality-control and
+usage guide. See `docs/part1_data_notes.md` for the shorter methodological
+narrative and `docs/part1_deliverables.md` for the four-slide handoff.
 
 ## Team ownership
 
