@@ -338,7 +338,7 @@ broad mechanism; they do not prove exact tracking or a valid risk model.
 - Include both `y = 3x` and the fitted OLS line with distinct styles.
 - Show percent axes, `n = 1,983`, sample dates and the source/price-field caveat.
 - Keep and label the two flagged dates; do not omit them to improve appearance.
-- Suggested new output: `outputs/figures/fig_part1_daily_leverage_check.png`.
+- Suggested new output: `outputs/part1/figures/fig_part1_daily_leverage_check.png`.
   This chart is planned, not an existing cleaning-script output.
 
 ```text
@@ -398,7 +398,7 @@ Standard deviation uses `n - 1`. Each series has 1,983 observations over
 | Compatibility prices/returns | `data/processed/part1_clean_prices.*`, `part1_clean_returns.*` | Available; established replication-script inputs |
 | Data explanation and audit | `docs/data_guide.md`, `data/metadata/part1_*.csv` | Available; source, dictionary, quality and checksums |
 | Cleaning workflows | Python/Stata paths in section 5 | Available |
-| Idealized replication diagnostic | `outputs/figures/fig_part1_replication.png`; `outputs/tables/table_part1_replication.csv` | Available; detailed interpretation handed to Part 2 |
+| Idealized replication diagnostic | `outputs/part1/figures/fig_part1_replication.png`; `outputs/part1/tables/table_part1_replication.csv` | Available; detailed interpretation handed to Part 2 |
 | Descriptive/OLS results | Tables in this document; recipe below | Computed from current data; refresh after snapshot changes |
 | Daily scatter and standalone table exports | Suggested outputs in section 5 | To generate; not claimed to exist |
 | Five slides and rehearsal | Section 2 blueprint | To prepare |
@@ -459,6 +459,11 @@ does not guarantee the correct scale, zero mean gap or matching wealth paths.
 Run from the repository root. Use frozen inputs when preparing slides;
 a live refresh is a separate reviewed data update.
 
+All Part 1 generated figures and tables belong to `outputs/part1/`, with
+`figures/` and `tables/` subdirectories. The replication script reads this
+root from `part1.output_dir` in `config/project.yaml`. Parts 2-5 have separate
+reserved folders; see [output layout](../outputs/README.md).
+
 ### Existing Python / Stata workflows
 
 ```bash
@@ -499,7 +504,7 @@ assets = ["tqqq", "qqq", "ndx", "sqqq"]
 cols = [f"{a}_simple_return" for a in assets]
 assert d.date.is_unique and d.date.is_monotonic_increasing
 assert np.isfinite(d[cols].to_numpy()).all()
-tables, figures = Path("outputs/tables"), Path("outputs/figures")
+tables, figures = Path("outputs/part1/tables"), Path("outputs/part1/figures")
 tables.mkdir(parents=True, exist_ok=True)
 figures.mkdir(parents=True, exist_ok=True)
 stats = pd.DataFrame({

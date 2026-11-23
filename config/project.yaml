@@ -23,6 +23,7 @@ part1:
   leverage: 3.0
   prices_file: data/processed/part1_clean_prices.csv
   returns_file: data/processed/part1_clean_returns.csv
+  output_dir: outputs/part1
 
 risk:
   confidence_levels: [0.95, 0.99]

@@ -82,6 +82,12 @@ narrative and `docs/part1_deliverables.md` for the five-slide product, data and 
 
 ## Team ownership
 
+Generated results are grouped by presentation part under `outputs/part1/`
+through `outputs/part5/`. Existing Part 1 figures and CSV/DTA tables are in
+`outputs/part1/figures/` and `outputs/part1/tables/`; Parts 2-5 are reserved
+empty directories. See [output layout](outputs/README.md) for the convention.
+Shared raw/processed data and audit metadata remain under `data/`.
+
 | Workstream | Main responsibility | Primary locations |
 |---|---|---|
 | A | Product research, integration, slides and report | `docs/product_profile.md`, `slides/`, `report/` |

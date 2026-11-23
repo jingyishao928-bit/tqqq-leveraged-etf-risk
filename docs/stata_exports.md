@@ -76,8 +76,8 @@ data/raw/NDX_raw.dta
 data/raw/QQQ_raw.dta
 data/raw/SQQQ_raw.dta
 data/raw/TQQQ_raw.dta
-outputs/tables/part1_replication_path.dta
-outputs/tables/table_part1_replication.dta
+outputs/part1/tables/part1_replication_path.dta
+outputs/part1/tables/table_part1_replication.dta
 ```
 
 In Stata, open a file from the repository root with, for example:

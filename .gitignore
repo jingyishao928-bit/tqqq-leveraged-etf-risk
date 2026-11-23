@@ -24,8 +24,6 @@ data/metadata/*
 !data/metadata/.gitkeep
 
 # Generated outputs are reviewed before being force-added for a release.
-outputs/figures/*
-!outputs/figures/.gitkeep
-outputs/tables/*
-!outputs/tables/.gitkeep
-
+outputs/part[1-5]/**
+!outputs/part[1-5]/**/
+!outputs/part[1-5]/**/.gitkeep

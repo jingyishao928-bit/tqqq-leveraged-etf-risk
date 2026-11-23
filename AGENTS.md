@@ -30,8 +30,10 @@ This repository supports the RMSC 5003 Topic 10 group project on leveraged ETFs.
 - Use the settings in `config/project.yaml`; do not duplicate constants across modules.
 - Use a local random-number generator seeded from configuration and pass it explicitly to simulations.
 - Functions must document inputs, units, shapes, and outputs.
-- Generated figures go to `outputs/figures/`; generated tables go to `outputs/tables/`.
+- Keep generated outputs with their producing presentation part: figures in
+  `outputs/partN/figures/` and tables in `outputs/partN/tables/` (`N` is 1-5).
+  Part 1's output root is configured by `part1.output_dir` in
+  `config/project.yaml`. Parts 2-5 are reserved empty directories until used.
 - Add or update tests for financial logic, signs, data leakage, and reproducibility.
 - Do not invent data, parameters, citations, or results. Mark incomplete work as TODO and fail clearly rather than silently generating placeholders.
 - Do not directly push to `main`. Use a focused branch and pull request.
-
