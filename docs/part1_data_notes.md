@@ -25,9 +25,10 @@ Historical observations were downloaded from Yahoo Finance historical data:
 The transport script uses Yahoo's chart endpoint in shorter date chunks. The
 raw CSV files are preserved, and
 `data/metadata/part1_source_manifest.csv` records the data fields, date windows
-and retrieval timestamp. Product facts such as TQQQ's daily objective, fees
-and inception date should be cited from ProShares' own product page or current
-factsheet, not inferred from the price CSV.
+and retrieval timestamp. QQQ, TQQQ and SQQQ product facts were separately
+verified from Invesco and ProShares materials accessed on 2026-11-24 and are
+stored in `data/metadata/part1_product_facts.csv`. Objectives, inception dates,
+fees and contractual waiver terms must not be inferred from the price CSV.
 
 ## Cleaning decisions
 
@@ -84,10 +85,12 @@ reason to delete data or force the curves to match.
 ## Results to mention in the presentation
 
 For the current common window, the diagnostic has 1,984 price rows and 1,983
-return observations. The actual and idealized daily returns have a high
-correlation, while the cumulative NAV paths diverge materially. The exact
-values are in `outputs/part1/tables/table_part1_replication.csv`; use those values in
-slides rather than manually retyping numbers.
+return observations. The TQQQ adjusted-price return and idealized daily return
+have a high correlation, while their cumulative wealth indexes diverge
+materially. The TQQQ series is a Yahoo adjusted-price wealth index, not an
+official fund NAV series. The exact values are in
+`outputs/part1/tables/table_part1_replication.csv`; use those values in slides
+rather than manually retyping numbers.
 
 Use `data/processed/clean_returns.csv` for new group-wide analysis. The
 `part1_clean_*` files remain available for the existing replication script and

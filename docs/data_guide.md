@@ -77,19 +77,27 @@ are used for reproducibility.
 
 ### Product facts
 
-Price history and product terms are separate sources. The TQQQ daily objective,
-inception date and expense-ratio snapshot were recorded from the ProShares
-product page: <https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq>.
-Only the TQQQ facts currently stored in
-`data/metadata/part1_product_facts.csv` have been reviewed. Current QQQ and
-SQQQ product terms must be verified from their issuer documents before they
-are quoted in the final presentation or report.
+Price history and product terms are separate sources. Current product facts for
+QQQ, TQQQ and SQQQ were verified from Invesco and ProShares issuer materials
+on 2026-11-24 and stored in
+`data/metadata/part1_product_facts.csv`. The record covers formal names,
+sponsors or advisers, benchmarks, objectives, inception dates, expense ratios
+and the current TQQQ waiver expiry.
 
-Issuer reference pages for that verification are:
+Official issuer references are:
 
-- TQQQ: <https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq>
-- SQQQ: <https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq>
-- QQQ: <https://www.invesco.com/qqq-etf/en/home.html>
+- QQQ product detail: <https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html>
+- QQQ overview: <https://www.invesco.com/qqq-etf/en/home.html>
+- TQQQ product page: <https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq>
+- TQQQ summary prospectus: <https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf>
+- SQQQ product page: <https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq>
+- SQQQ summary prospectus: <https://www.proshares.com/globalassets/proshares/prospectuses/sqqq_summary_prospectus.pdf>
+
+The TQQQ prospectus dated 2026-09-28 reports 0.94% before waivers, a
+0.16% contractual reduction, 0.78% after waivers and a 2027-09-30 expiry for
+the applicable arrangements. SQQQ currently reports 0.94% gross and net. QQQ
+reports a 0.18% total expense ratio. These expense ratios are not complete
+all-in trading or financing costs.
 
 These issuer pages support product descriptions and current terms. They are
 not the source of the committed historical OHLCV observations.
@@ -355,8 +363,8 @@ reviewed pull request.
    mechanics.
 4. The matched-date rule can remove a date that exists in only some inputs.
 5. The sample ends on 2026-11-20 and contains no later observations.
-6. TQQQ product facts are a dated snapshot; QQQ and SQQQ product terms still
-   require issuer verification before final use.
+6. QQQ, TQQQ and SQQQ product facts are issuer-verified snapshots accessed on
+   2026-11-24; fees and contractual waivers can change after that date.
 7. SQQQ is not a proxy for the P&L of shorting TQQQ.
 8. The difference between actual TQQQ and an idealized `3 * NDX` path cannot be
    attributed entirely to volatility decay. Fees, financing, tracking and the

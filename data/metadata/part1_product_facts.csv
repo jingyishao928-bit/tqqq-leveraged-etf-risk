@@ -1,5 +1,28 @@
-fact,value,source,accessed_on,notes
-daily_objective,3x daily performance of the Nasdaq-100 Index,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Before fees and expenses; this is a daily target, not a multi-day promise"
-inception_date,2010-02-09,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Verify against the latest factsheet before final submission"
-gross_expense_ratio,0.94%,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Current product-page snapshot"
-net_expense_ratio,0.78%,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-23,"Current product-page snapshot; check any waiver expiry in the latest prospectus"
+ticker,fact,value,source,accessed_on,notes
+QQQ,formal_name,"Invesco QQQ Trust, Series 1",https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html,2026-11-24,Official Invesco product detail page
+QQQ,sponsor,Invesco Capital Management LLC,https://www.invesco.com/qqq-etf/en/home.html,2026-11-24,Official page identifies Invesco Capital Management LLC as the trust sponsor
+QQQ,benchmark,Nasdaq-100 Index,https://www.invesco.com/qqq-etf/en/home.html,2026-11-24,Official page states that QQQ tracks the Nasdaq-100 Index
+QQQ,investment_objective,Passively managed and tracks the Nasdaq-100 Index,https://www.invesco.com/qqq-etf/en/home.html,2026-11-24,QQQ is the unleveraged investable comparator; it does not have a leveraged daily target
+QQQ,inception_date,1999-03-10,https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html,2026-11-24,Official product detail page launch date
+QQQ,total_expense_ratio,0.18%,https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html,2026-11-24,Current official product-page snapshot; total ownership cost can also include trading costs and premiums or discounts
+TQQQ,formal_name,ProShares UltraPro QQQ,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-24,Official ProShares product name
+TQQQ,issuer_brand,ProShares,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-24,ProShares product page
+TQQQ,investment_adviser,ProShare Advisors LLC,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,2026-11-24,Summary prospectus dated 2026-09-28
+TQQQ,benchmark,Nasdaq-100 Index,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-24,Daily target benchmark
+TQQQ,investment_objective,3x the daily performance of the Nasdaq-100 Index,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-24,"Before fees and expenses; daily target only, not a multi-day promise"
+TQQQ,inception_date,2010-02-09,https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq,2026-11-24,Official product-page inception date
+TQQQ,gross_expense_ratio,0.94%,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,2026-11-24,Summary prospectus dated 2026-09-28
+TQQQ,fee_waiver_reimbursement,-0.16%,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,2026-11-24,Contractual reduction disclosed for the fiscal year ended 2026-05-31
+TQQQ,net_expense_ratio,0.78%,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,2026-11-24,0.94% before waivers less 0.16% waiver/reimbursement
+TQQQ,waiver_expiry,2027-09-30,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,2026-11-24,Latest summary prospectus says the contractual arrangements continue through this date
+TQQQ,fee_scope,Operating-expense table excludes transaction and financing costs,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,2026-11-24,Do not treat 0.78% as the all-in cost of obtaining leverage
+SQQQ,formal_name,ProShares UltraPro Short QQQ,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,Official ProShares product name
+SQQQ,issuer_brand,ProShares,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,ProShares product page
+SQQQ,investment_adviser,ProShare Advisors LLC,https://www.proshares.com/globalassets/proshares/prospectuses/sqqq_summary_prospectus.pdf,2026-11-24,Summary prospectus dated 2026-09-28
+SQQQ,benchmark,Nasdaq-100 Index,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,Daily target benchmark
+SQQQ,investment_objective,3x the inverse (-3x) of the daily performance of the Nasdaq-100 Index,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,"Before fees and expenses; daily inverse target only, not the P&L from shorting TQQQ"
+SQQQ,inception_date,2010-02-09,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,Official product-page inception date
+SQQQ,gross_expense_ratio,0.94%,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,Current official product-page snapshot
+SQQQ,net_expense_ratio,0.94%,https://www.proshares.com/our-etfs/leveraged-and-inverse/sqqq,2026-11-24,Current gross and net ratios are equal
+SQQQ,expense_cap_expiry,2027-09-30,https://www.proshares.com/globalassets/proshares/prospectuses/sqqq_summary_prospectus.pdf,2026-11-24,"Advisor caps operating expenses at 0.95% through this date; current disclosed expenses are 0.94%, so there is no current gross-to-net reduction"
+SQQQ,fee_scope,Operating-expense table excludes transaction and financing costs,https://www.proshares.com/globalassets/proshares/prospectuses/sqqq_summary_prospectus.pdf,2026-11-24,Do not treat the stated expense ratio as the all-in cost of inverse leverage

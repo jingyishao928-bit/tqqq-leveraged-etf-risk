@@ -1,10 +1,10 @@
 """Create the Part 1 idealized daily-reset replication check.
 
-The check is deliberately diagnostic: it starts the idealized NAV at the
-same value as TQQQ and compounds 3 times the daily NDX price return. The gap
-to adjusted TQQQ is not treated as a model error because actual TQQQ also
-reflects fees, financing, trading, tracking differences, distributions and
-the fact that NDX here is a price index.
+The check is deliberately diagnostic: it compares a TQQQ adjusted-price
+wealth index with an idealized wealth index that compounds 3 times the daily
+NDX price return. The gap is not treated as a model error because the TQQQ
+adjusted-price series also reflects fees, financing, trading, tracking
+differences and distributions, while NDX here is a price index.
 """
 
 from __future__ import annotations
@@ -48,18 +48,22 @@ def main() -> None:
         validate="one_to_one",
     )
 
-    frame["TQQQ_actual_nav"] = frame["TQQQ_price"]
-    frame["TQQQ_actual_nav_index"] = frame["TQQQ_price"] / frame["TQQQ_price"].iloc[0]
-    frame["TQQQ_ideal_nav"] = frame["TQQQ_price"].iloc[0] * (
+    frame["TQQQ_adjusted_price_wealth_index"] = (
+        frame["TQQQ_price"] / frame["TQQQ_price"].iloc[0]
+    )
+    frame["TQQQ_idealized_3x_wealth_index"] = (
         1.0 + LEVERAGE * frame["NDX_simple_ret"].fillna(0.0)
     ).cumprod()
-    frame["TQQQ_ideal_nav_index"] = frame["TQQQ_ideal_nav"] / frame["TQQQ_price"].iloc[0]
-    frame["tracking_gap_pct"] = frame["TQQQ_actual_nav_index"] / frame["TQQQ_ideal_nav_index"] - 1.0
+    frame["tracking_gap_pct"] = (
+        frame["TQQQ_adjusted_price_wealth_index"]
+        / frame["TQQQ_idealized_3x_wealth_index"]
+        - 1.0
+    )
 
     output_columns = [
         "Date",
-        "TQQQ_actual_nav_index",
-        "TQQQ_ideal_nav_index",
+        "TQQQ_adjusted_price_wealth_index",
+        "TQQQ_idealized_3x_wealth_index",
         "tracking_gap_pct",
         "NDX_simple_ret",
     ]
@@ -78,8 +82,14 @@ def main() -> None:
             ["leverage_target", LEVERAGE],
             ["common_price_rows", len(frame)],
             ["return_observations", int(frame["NDX_simple_ret"].notna().sum())],
-            ["actual_final_nav_index", last["TQQQ_actual_nav_index"]],
-            ["ideal_final_nav_index", last["TQQQ_ideal_nav_index"]],
+            [
+                "adjusted_price_final_wealth_index",
+                last["TQQQ_adjusted_price_wealth_index"],
+            ],
+            [
+                "idealized_3x_final_wealth_index",
+                last["TQQQ_idealized_3x_wealth_index"],
+            ],
             ["final_tracking_gap_pct", last["tracking_gap_pct"]],
             [
                 "daily_return_correlation_actual_vs_3x_ndx",
@@ -96,22 +106,22 @@ def main() -> None:
     fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharex=True, constrained_layout=True)
     axes[0].plot(
         frame["Date"],
-        frame["TQQQ_actual_nav_index"],
-        label="Actual TQQQ adjusted NAV",
+        frame["TQQQ_adjusted_price_wealth_index"],
+        label="TQQQ adjusted-price wealth index",
         linewidth=1.3,
     )
     axes[0].plot(
         frame["Date"],
-        frame["TQQQ_ideal_nav_index"],
-        label="Idealized 3x daily NDX path",
+        frame["TQQQ_idealized_3x_wealth_index"],
+        label="Idealized daily 3x NDX wealth index",
         linewidth=1.1,
     )
-    axes[0].set_title("TQQQ versus an idealized daily 3x replication")
-    axes[0].set_ylabel("NAV indexed to 1.00")
+    axes[0].set_title("TQQQ adjusted-price wealth versus an idealized daily 3x path")
+    axes[0].set_ylabel("Wealth index (start = 1.00)")
     axes[0].legend(loc="upper left")
     axes[1].plot(frame["Date"], 100.0 * frame["tracking_gap_pct"], color="#b23a48", linewidth=1.1)
     axes[1].axhline(0.0, color="black", linewidth=0.8)
-    axes[1].set_title("Actual TQQQ relative to the idealized path")
+    axes[1].set_title("TQQQ adjusted-price wealth relative to the idealized path")
     axes[1].set_ylabel("Gap (%)")
     axes[1].set_xlabel("Date")
     fig.savefig(FIGURE_DIR / "fig_part1_replication.png", bbox_inches="tight")
