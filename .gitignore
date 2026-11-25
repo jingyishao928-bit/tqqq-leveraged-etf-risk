@@ -29,3 +29,21 @@ outputs/part[1-5]/**
 !outputs/part[1-5]/**/.gitkeep
 # Part 1 analysis source is stored alongside its reviewed results.
 !outputs/part1/analyze_part1.py
+
+# Part 2 analysis and review source. Generated tables and figures remain opt-in.
+!outputs/part2/analyze_part2.py
+!outputs/part2/check_part2.py
+!outputs/part2/part2_documents.py
+!outputs/part2/part2_figures.py
+!outputs/part2/part2_sensitivity.py
+!outputs/part2/part2_research.py
+!outputs/part2/build_part2_presentation.py
+!outputs/part2/build_part2_report.py
+!outputs/part2/README.md
+!outputs/part2/part2_report_section.md
+!outputs/part2/part2_ppt_slides.md
+!outputs/part2/part2_references.json
+!outputs/part2/requirements-presentation.txt
+!outputs/part2/results_guide.zh.md
+!outputs/part2/report/Part2_Report.md
+!outputs/part2/report/Part2_Overview.zh.md

@@ -248,3 +248,12 @@ threshold should also be described here and covered by updated tests.
 For the shorter methodological narrative, see
 `docs/part1_data_notes.md`. For exact field definitions, source records, and
 file fingerprints, use the CSV files under `data/metadata/`.
+
+
+## Part 2 historical analysis
+
+`test_part2_analysis.py` exercises the exact two-day reset identity, signs of
+fixed-share P&L, same-sample reproduction of the Part 1 index path and the
+past-only alignment of rolling estimates. The [Part 2 self-check](../outputs/part2/README.md)
+recalculates the historical paths, verifies CSV/Stata round trips, compares
+the report and slides with the console figures, and checks PNG exports and Git scope.

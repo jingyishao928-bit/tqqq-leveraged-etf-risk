@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1, "author": "Avellaneda & Zhang", "year": 2010,
+    "title": "Path-Dependence of Leveraged ETF Returns",
+    "journal": "SIAM Journal on Financial Mathematics", "details": "1(1), 586–603", "doi": "10.1137/090760805",
+    "use": "Motivates separating scaled underlying log growth from realized path drag."
+  },
+  {
+    "id": 2, "author": "Jarrow", "year": 2010,
+    "title": "Understanding the risk of leveraged ETFs",
+    "journal": "Finance Research Letters", "details": "7(3), 135–139", "doi": "10.1016/j.frl.2010.04.001",
+    "use": "Motivates explicit leverage and financing assumptions in the payoff mapping."
+  },
+  {
+    "id": 3, "author": "Charupat & Miu", "year": 2011,
+    "title": "The pricing and performance of leveraged exchange-traded funds",
+    "journal": "Journal of Banking & Finance", "details": "35(4), 966–977", "doi": "10.1016/j.jbankfin.2010.09.012",
+    "use": "Motivates daily tracking checks and the distinction between prices and NAV."
+  },
+  {
+    "id": 4, "author": "Tang & Xu", "year": 2013,
+    "title": "Solving the Return Deviation Conundrum of Leveraged Exchange-Traded Funds",
+    "journal": "Journal of Financial and Quantitative Analysis", "details": "48(1), 309–342", "doi": "10.1017/S0022109012000622",
+    "use": "Motivates the two-stage daily-reset versus actual-versus-ideal attribution."
+  },
+  {
+    "id": 5, "author": "Wagalath", "year": 2014,
+    "title": "Modelling the rebalancing slippage of leveraged exchange-traded funds",
+    "journal": "Quantitative Finance", "details": "14(9), 1503–1511", "doi": "10.1080/14697688.2014.916817",
+    "use": "Motivates keeping rebalancing slippage among unresolved implementation effects."
+  },
+  {
+    "id": 6, "author": "Charupat & Miu", "year": 2014,
+    "title": "A New Method to Measure the Performance of Leveraged Exchange-Traded Funds",
+    "journal": "Financial Review", "details": "49(4), 735–763", "doi": "10.1111/fire.12055",
+    "use": "Motivates a separate fee sensitivity and careful treatment of financing."
+  },
+  {
+    "id": 7, "author": "Loviscek, Tang & Xu", "year": 2014,
+    "title": "Do leveraged exchange-traded products deliver their stated multiples?",
+    "journal": "Journal of Banking & Finance", "details": "43, 29–47", "doi": "10.1016/j.jbankfin.2014.02.008",
+    "use": "Motivates displaying the same performance comparison at different horizons."
+  },
+  {
+    "id": 8, "author": "Bansal & Marshall", "year": 2015,
+    "title": "Tracking error decomposition and return attribution for leveraged exchange traded funds",
+    "journal": "Global Finance Journal", "details": "28, 84–94", "doi": "10.1016/j.gfj.2015.11.006",
+    "use": "Motivates analyzing trend gains alongside volatility costs."
+  },
+  {
+    "id": 9, "author": "Giannetti", "year": 2017,
+    "title": "The dynamics of leveraged ETFs returns: a panel data study",
+    "journal": "Quantitative Finance", "details": "17(5), 745–761", "doi": "10.1080/14697688.2016.1237035",
+    "use": "Motivates the non-overlapping-window sensitivity, without importing a panel model."
+  },
+  {
+    "id": 10, "author": "Miu, Yueh & Han", "year": 2021,
+    "title": "Performance of Japanese leveraged ETFs",
+    "journal": "Pacific-Basin Finance Journal", "details": "65, 101490", "doi": "10.1016/j.pacfin.2020.101490",
+    "use": "Motivates showing the benchmark convention when comparing tracking diagnostics."
+  }
+]

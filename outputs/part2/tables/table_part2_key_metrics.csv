@@ -1,0 +1,280 @@
+metric,value,unit,display
+base_date,2019-01-02,date,2019-01-02
+analysis_start,2019-01-03,date,2019-01-03
+analysis_end,2026-11-20,date,2026-11-20
+fee_accessed,2026-11-24,date,2026-11-24
+returns,1983,count,"1,983"
+priced_dates,1984,count,"1,984"
+annual_days,252,count,252
+review_flags,2,count,2
+short_window,21,count,21
+long_window,63,count,63
+leverage,3.0,multiple,3×
+leverage_number,3.0,multiple,3
+fee_source,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf,source URL,https://www.proshares.com/globalassets/proshares/prospectuses/tqqq_summary_prospectus.pdf
+base_wealth,1,wealth per initial dollar,1.00
+annual_fee_scenario,0.78,%,0.78%
+annual_fee_gross,0.9399999999999998,%,0.94%
+holding_days_1,1,count,1
+holding_days_10,10,count,10
+holding_days_21,21,count,21
+round_trip_day1,10.0,%,10.00%
+round_trip_day2,-9.090909090909093,%,-9.09%
+round_trip_underlying_return,0.0,%,0.00%
+round_trip_daily_reset_return,-5.4545454545454675,%,-5.45%
+round_trip_linear_return,0.0,%,0.00%
+round_trip_reset_gap,-5.4545454545454675,pp,-5.45 pp
+two_gains_day1,10.0,%,10.00%
+two_gains_day2,10.0,%,10.00%
+two_gains_underlying_return,21.000000000000018,%,21.00%
+two_gains_daily_reset_return,69.00000000000001,%,69.00%
+two_gains_linear_return,63.00000000000006,%,63.00%
+two_gains_reset_gap,5.999999999999961,pp,6.00 pp
+two_losses_day1,-10.0,%,-10.00%
+two_losses_day2,-10.0,%,-10.00%
+two_losses_underlying_return,-18.999999999999993,%,-19.00%
+two_losses_daily_reset_return,-51.0,%,-51.00%
+two_losses_linear_return,-56.999999999999986,%,-57.00%
+two_losses_reset_gap,5.999999999999983,pp,6.00 pp
+bench_ndx_ideal_daily_return,1358.9359383419594,%,"1,358.94%"
+bench_ndx_linear_return,880.4507877524529,%,880.45%
+bench_ndx_reset_gap,478.4851505895066,pp,478.49 pp
+bench_ndx_implementation_gap,-535.8695079188847,pp,-535.87 pp
+bench_ndx_actual_linear_gap,-57.384357329378055,pp,-57.38 pp
+bench_ndx_exact_log_drag,-142.9315126461572,log pts,-142.93 log pts
+bench_ndx_approx_log_drag,-140.52433622710245,log pts,-140.52 log pts
+bench_ndx_approximation_error,-2.407176419054724,log pts,-2.41 log pts
+bench_qqq_ideal_daily_return,1626.6868656179327,%,"1,626.69%"
+bench_qqq_linear_return,935.6454997057746,%,935.65%
+bench_qqq_reset_gap,691.0413659121581,pp,691.04 pp
+bench_qqq_implementation_gap,-803.6204351948578,pp,-803.62 pp
+bench_qqq_actual_linear_gap,-112.57906928269978,pp,-112.58 pp
+bench_qqq_exact_log_drag,-139.79093702979827,log pts,-139.79 log pts
+bench_qqq_approx_log_drag,-137.39508104594327,log pts,-137.40 log pts
+bench_qqq_approximation_error,-2.395855983855011,log pts,-2.40 log pts
+fee_ndx_no_fee_annual_fee,0.0,%,0.00%
+fee_ndx_no_fee_fee_gap,0.0,pp,0.00 pp
+fee_ndx_no_fee_remaining_gap,-535.8695079188847,pp,-535.87 pp
+fee_ndx_no_fee_terminal_wealth,14.589359383419595,wealth per initial dollar,14.5894
+fee_ndx_net_annual_fee,0.78,%,0.78%
+fee_ndx_net_fee_gap,-86.83486043810369,pp,-86.83 pp
+fee_ndx_net_remaining_gap,-449.03464748078096,pp,-449.03 pp
+fee_ndx_net_terminal_wealth,13.721010779038558,wealth per initial dollar,13.7210
+fee_ndx_gross_annual_fee,0.9399999999999998,%,0.94%
+fee_ndx_gross_fee_gap,-103.99828247366614,pp,-104.00 pp
+fee_ndx_gross_remaining_gap,-431.8712254452185,pp,-431.87 pp
+fee_ndx_gross_terminal_wealth,13.549376558682933,wealth per initial dollar,13.5494
+fee_qqq_no_fee_annual_fee,0.0,%,0.00%
+fee_qqq_no_fee_fee_gap,0.0,pp,0.00 pp
+fee_qqq_no_fee_remaining_gap,-803.6204351948578,pp,-803.62 pp
+fee_qqq_no_fee_terminal_wealth,17.266868656179327,wealth per initial dollar,17.2669
+fee_qqq_net_annual_fee,0.78,%,0.78%
+fee_qqq_net_fee_gap,-102.76030310058175,pp,-102.76 pp
+fee_qqq_net_remaining_gap,-700.8601320942761,pp,-700.86 pp
+fee_qqq_net_terminal_wealth,16.23926562517351,wealth per initial dollar,16.2393
+fee_qqq_gross_annual_fee,0.9399999999999998,%,0.94%
+fee_qqq_gross_fee_gap,-123.07156556999566,pp,-123.07 pp
+fee_qqq_gross_remaining_gap,-680.5488696248622,pp,-680.55 pp
+fee_qqq_gross_terminal_wealth,16.03615300047937,wealth per initial dollar,16.0362
+holding_ndx_1_mean_abs_reset_gap,0.0,pp,0.00 pp
+holding_ndx_1_mean_exact_log_drag,-0.07207842291788077,log pts,-0.07 log pts
+holding_ndx_10_mean_abs_reset_gap,0.5264788711761399,pp,0.53 pp
+holding_ndx_10_mean_exact_log_drag,-0.7132811855286967,log pts,-0.71 log pts
+holding_ndx_21_mean_abs_reset_gap,1.1625979067951375,pp,1.16 pp
+holding_ndx_21_mean_exact_log_drag,-1.4906999663331204,log pts,-1.49 log pts
+holding_qqq_1_mean_abs_reset_gap,0.0,pp,0.00 pp
+holding_qqq_1_mean_exact_log_drag,-0.07049467323741741,log pts,-0.07 log pts
+holding_qqq_10_mean_abs_reset_gap,0.5191369199132593,pp,0.52 pp
+holding_qqq_10_mean_exact_log_drag,-0.6975097619256589,log pts,-0.70 log pts
+holding_qqq_21_mean_abs_reset_gap,1.1562499719462391,pp,1.16 pp
+holding_qqq_21_mean_exact_log_drag,-1.4569691111568195,log pts,-1.46 log pts
+QQQ_daily_mean,0.0829515672243015,%,0.08%
+QQQ_daily_sd,1.5178372815383596,%,1.52%
+QQQ_daily_min,-11.978770990000498,%,-11.98%
+QQQ_daily_max,12.003077382611638,%,12.00%
+QQQ_cumulative_return,311.8818332352582,%,311.88%
+QQQ_annual_return,19.7086183565927,%,19.71%
+QQQ_annual_volatility,24.094919865676975,%,24.09%
+QQQ_max_drawdown,-35.11870979431687,%,-35.12%
+QQQ_peak_date,2021-12-27,date,2021-12-27
+QQQ_trough_date,2022-11-03,date,2022-11-03
+TQQQ_daily_mean,0.2142974591040749,%,0.21%
+TQQQ_daily_sd,4.4896157461120145,%,4.49%
+TQQQ_daily_min,-34.4651551482238,%,-34.47%
+TQQQ_daily_max,35.244229429310536,%,35.24%
+TQQQ_cumulative_return,823.0664304230748,%,823.07%
+TQQQ_annual_return,32.63617204905089,%,32.64%
+TQQQ_annual_volatility,71.27044047871256,%,71.27%
+TQQQ_max_drawdown,-81.65984531733767,%,-81.66%
+TQQQ_peak_date,2021-11-19,date,2021-11-19
+TQQQ_trough_date,2022-12-28,date,2022-12-28
+SQQQ_daily_mean,-0.21541405238612843,%,-0.22%
+SQQQ_daily_sd,4.50354791561262,%,4.50%
+SQQQ_daily_min,-35.28411908811039,%,-35.28%
+SQQQ_daily_max,32.74220828880996,%,32.74%
+SQQQ_cumulative_return,-99.81744246241053,%,-99.82%
+SQQQ_annual_return,-55.127714987399514,%,-55.13%
+SQQQ_annual_volatility,71.49160681304576,%,71.49%
+SQQQ_max_drawdown,-99.90817193487545,%,-99.91%
+SQQQ_peak_date,2019-01-03,date,2019-01-03
+SQQQ_trough_date,2026-10-06,date,2026-10-06
+full_analysis_start,2019-01-03,date,2019-01-03
+full_analysis_end,2026-11-20,date,2026-11-20
+full_observations,1983,count,"1,983"
+full_qqq_annual_vol,24.094919865676975,%,24.09%
+full_qqq_return,311.8818332352582,%,311.88%
+full_tqqq_return,823.0664304230748,%,823.07%
+full_daily_3x_qqq_return,1626.6868656179327,%,"1,626.69%"
+full_linear_3x_qqq_return,935.6454997057746,%,935.65%
+full_daily_3x_ndx_return,1358.9359383419594,%,"1,358.94%"
+full_relative_gap,-46.54117959640961,%,-46.54%
+full_relative_fee_gap,-5.951299285745526,%,-5.95%
+full_valuation_gap,-803.6204351948578,pp,-803.62 pp
+full_ndx_valuation_gap,-535.8695079188847,pp,-535.87 pp
+full_benchmark_basis_gap,-267.7509272759732,pp,-267.75 pp
+full_trend_gap,5951.791596209223,pp,"5,951.79 pp"
+full_variance_gap,-5260.750230297064,pp,"-5,260.75 pp"
+full_reset_gap,691.0413659121581,pp,691.04 pp
+full_fee_gap,-102.76030310058175,pp,-102.76 pp
+full_residual_gap,-700.8601320942761,pp,-700.86 pp
+full_actual_linear_gap,-112.57906928269978,pp,-112.58 pp
+full_reset_gap_abs,691.0413659121581,pp,691.04 pp
+full_benchmark_basis_gap_abs,267.7509272759732,pp,267.75 pp
+full_relative_fee_gap_abs,5.951299285745526,%,5.95%
+full_exact_log_drag,-139.79093702979827,log pts,-139.79 log pts
+full_approx_log_drag,-137.39508104594327,log pts,-137.40 log pts
+crash_analysis_start,2020-02-20,date,2020-02-20
+crash_analysis_end,2020-03-23,date,2020-03-23
+crash_observations,23,count,23
+crash_qqq_annual_vol,80.01519251014105,%,80.02%
+crash_qqq_return,-27.916586124608056,%,-27.92%
+crash_tqqq_return,-69.82889803077921,%,-69.83%
+crash_daily_3x_qqq_return,-69.46222007551,%,-69.46%
+crash_linear_3x_qqq_return,-83.74975837382416,%,-83.75%
+crash_daily_3x_ndx_return,-69.68280677932815,%,-69.68%
+crash_relative_gap,-1.200735469886427,%,-1.20%
+crash_relative_fee_gap,-0.07587613831102624,%,-0.08%
+crash_valuation_gap,-0.36667795526920677,pp,-0.37 pp
+crash_ndx_valuation_gap,-0.14609125145106372,pp,-0.15 pp
+crash_benchmark_basis_gap,-0.22058670381814305,pp,-0.22 pp
+crash_trend_gap,21.20443398096358,pp,21.20 pp
+crash_variance_gap,-6.9168956826494155,pp,-6.92 pp
+crash_reset_gap,14.287538298314162,pp,14.29 pp
+crash_fee_gap,-0.023170888132623135,pp,-0.02 pp
+crash_residual_gap,-0.34350706713658363,pp,-0.34 pp
+crash_actual_linear_gap,13.920860343044955,pp,13.92 pp
+crash_reset_gap_abs,14.287538298314162,pp,14.29 pp
+crash_benchmark_basis_gap_abs,0.22058670381814305,pp,0.22 pp
+crash_relative_fee_gap_abs,0.07587613831102624,%,0.08%
+crash_exact_log_drag,-20.416694836942483,log pts,-20.42 log pts
+crash_approx_log_drag,-17.916922867512326,log pts,-17.92 log pts
+rebound_analysis_start,2020-03-24,date,2020-03-24
+rebound_analysis_end,2020-09-02,date,2020-09-02
+rebound_observations,114,count,114
+rebound_qqq_annual_vol,29.679118398036557,%,29.68%
+rebound_qqq_return,77.92238529141133,%,77.92%
+rebound_tqqq_return,389.9774944563761,%,389.98%
+rebound_daily_3x_qqq_return,398.6273820793117,%,398.63%
+rebound_linear_3x_qqq_return,233.767155874234,%,233.77%
+rebound_daily_3x_ndx_return,389.946709422196,%,389.95%
+rebound_relative_gap,-1.7347397944462828,%,-1.73%
+rebound_relative_fee_gap,-0.34783879338704526,%,-0.35%
+rebound_valuation_gap,-8.649887622935548,pp,-8.65 pp
+rebound_ndx_valuation_gap,0.030785034180080828,pp,0.03 pp
+rebound_benchmark_basis_gap,-8.680672657115629,pp,-8.68 pp
+rebound_trend_gap,229.47062243482924,pp,229.47 pp
+rebound_variance_gap,-64.61039622975156,pp,-64.61 pp
+rebound_reset_gap,164.8602262050777,pp,164.86 pp
+rebound_fee_gap,-1.7344194693221127,pp,-1.73 pp
+rebound_residual_gap,-6.9154681536134355,pp,-6.92 pp
+rebound_actual_linear_gap,156.21033858214216,pp,156.21 pp
+rebound_reset_gap_abs,164.8602262050777,pp,164.86 pp
+rebound_benchmark_basis_gap_abs,8.680672657115629,pp,8.68 pp
+rebound_relative_fee_gap_abs,0.34783879338704526,%,0.35%
+rebound_exact_log_drag,-12.184279304739533,log pts,-12.18 log pts
+rebound_approx_log_drag,-12.788052517662846,log pts,-12.79 log pts
+bear_analysis_start,2022-01-04,date,2022-01-04
+bear_analysis_end,2022-12-30,date,2022-12-30
+bear_observations,250,count,250
+bear_qqq_annual_vol,32.195663429718074,%,32.20%
+bear_qqq_return,-33.219870644873396,%,-33.22%
+bear_tqqq_return,-79.67652294189759,%,-79.68%
+bear_daily_3x_qqq_return,-78.2228641238459,%,-78.22%
+bear_linear_3x_qqq_return,-99.65961193462019,%,-99.66%
+bear_daily_3x_ndx_return,-78.8373369649441,%,-78.84%
+bear_relative_gap,-6.675160711301132,%,-6.68%
+bear_relative_fee_gap,-0.7769758313120212,%,-0.78%
+bear_valuation_gap,-1.4536588180517036,pp,-1.45 pp
+bear_ndx_valuation_gap,-0.8391859769534854,pp,-0.84 pp
+bear_benchmark_basis_gap,-0.6144728410982181,pp,-0.61 pp
+bear_trend_gap,29.440782770565903,pp,29.44 pp
+bear_variance_gap,-8.004034959791607,pp,-8.00 pp
+bear_reset_gap,21.4367478107743,pp,21.44 pp
+bear_fee_gap,-0.1692030825096974,pp,-0.17 pp
+bear_residual_gap,-1.284455735542006,pp,-1.28 pp
+bear_actual_linear_gap,19.983088992722596,pp,19.98 pp
+bear_reset_gap_abs,21.4367478107743,pp,21.44 pp
+bear_benchmark_basis_gap_abs,0.6144728410982181,pp,0.61 pp
+bear_relative_fee_gap_abs,0.7769758313120212,%,0.78%
+bear_exact_log_drag,-31.30157362811937,log pts,-31.30 log pts
+bear_approx_log_drag,-30.875477670860548,log pts,-30.88 log pts
+choppy_analysis_start,2025-04-01,date,2025-04-01
+choppy_analysis_end,2025-04-30,date,2025-04-30
+choppy_observations,21,count,21
+choppy_qqq_annual_vol,58.78313185236237,%,58.78%
+choppy_qqq_return,1.3968271694091428,%,1.40%
+choppy_tqqq_return,-4.2233749715809505,%,-4.22%
+choppy_daily_3x_qqq_return,-3.3784695098193818,%,-3.38%
+choppy_linear_3x_qqq_return,4.190481508227428,%,4.19%
+choppy_daily_3x_ndx_return,-3.0006387856609806,%,-3.00%
+choppy_relative_gap,-0.8744484355352244,%,-0.87%
+choppy_relative_fee_gap,-0.06543232127483867,%,-0.07%
+choppy_valuation_gap,-0.8449054617615692,pp,-0.84 pp
+choppy_ndx_valuation_gap,-1.2227361859199704,pp,-1.22 pp
+choppy_benchmark_basis_gap,0.37783072415840113,pp,0.38 pp
+choppy_trend_gap,0.05880632283647991,pp,0.06 pp
+choppy_variance_gap,-7.62775734088329,pp,-7.63 pp
+choppy_reset_gap,-7.5689510180468105,pp,-7.57 pp
+choppy_fee_gap,-0.06322171025100465,pp,-0.06 pp
+choppy_residual_gap,-0.7816837515105646,pp,-0.78 pp
+choppy_actual_linear_gap,-8.413856479808379,pp,-8.41 pp
+choppy_reset_gap_abs,7.5689510180468105,pp,7.57 pp
+choppy_benchmark_basis_gap_abs,0.37783072415840113,pp,0.38 pp
+choppy_relative_fee_gap_abs,0.06543232127483867,%,0.07%
+choppy_exact_log_drag,-7.59834299939873,log pts,-7.60 log pts
+choppy_approx_log_drag,-8.237871869002834,log pts,-8.24 log pts
+QQQ_annual_tracking_error,3.208059438622991,%,3.21%
+QQQ_terminal_relative_gap,-46.54117959640961,%,-46.54%
+QQQ_mean_daily_error,-3.4557242568829607,bp,-3.46 bp
+QQQ_daily_correlation,0.9991010072169626,correlation,0.9991
+NDX_annual_tracking_error,3.8254538217809984,%,3.83%
+NDX_terminal_relative_gap,-36.73016023773364,%,-36.73%
+NDX_mean_daily_error,-2.842770162005415,bp,-2.84 bp
+NDX_daily_correlation,0.9989207923034982,correlation,0.9989
+long_tqqq_terminal_pnl_per_dollar,8.230664304230748,USD per initial USD,$8.23
+long_tqqq_worst_mark_per_dollar,-0.09688576176539554,USD per initial USD,-$0.10
+long_tqqq_worst_mark_per_dollar_abs,0.09688576176539554,USD per initial USD,$0.10
+long_tqqq_best_mark_per_dollar,18.45871044971927,USD per initial USD,$18.46
+long_tqqq_worst_daily_move_per_dollar,-2.715116189006981,USD per initial USD,-$2.72
+long_tqqq_best_daily_move_per_dollar,1.5773112138964223,USD per initial USD,$1.58
+short_tqqq_terminal_pnl_per_dollar,-8.230664304230748,USD per initial USD,-$8.23
+short_tqqq_worst_mark_per_dollar,-18.45871044971927,USD per initial USD,-$18.46
+short_tqqq_worst_mark_per_dollar_abs,18.45871044971927,USD per initial USD,$18.46
+short_tqqq_best_mark_per_dollar,0.09688576176539554,USD per initial USD,$0.10
+short_tqqq_worst_daily_move_per_dollar,-1.5773112138964223,USD per initial USD,-$1.58
+short_tqqq_best_daily_move_per_dollar,2.715116189006981,USD per initial USD,$2.72
+long_sqqq_terminal_pnl_per_dollar,-0.9981744246241053,USD per initial USD,-$0.9982
+long_sqqq_worst_mark_per_dollar,-0.9989910042729382,USD per initial USD,-$0.9990
+long_sqqq_worst_mark_per_dollar_abs,0.9989910042729382,USD per initial USD,$0.9990
+long_sqqq_best_mark_per_dollar,0.09878796389028399,USD per initial USD,$0.0988
+long_sqqq_worst_daily_move_per_dollar,-0.14424272322653564,USD per initial USD,-$0.1442
+long_sqqq_best_daily_move_per_dollar,0.11704187258972243,USD per initial USD,$0.1170
+beta_qqq_min,2.8476568548223153,multiple,2.848×
+beta_qqq_max,3.0019370114478683,multiple,3.002×
+beta_ndx_min,2.7902598404637495,multiple,2.790×
+beta_ndx_max,3.015667419910569,multiple,3.016×
+qqq_peak_vol_21,91.72894830992759,%,91.73%
+qqq_peak_vol_63,60.12200809365047,%,60.12%
+tqqq_peak_vol_21,265.9456774281923,%,265.95%
+tqqq_peak_vol_63,174.87886087304997,%,174.88%
+vol_drag_correlation,0.9589042732157264,correlation,0.959
