@@ -37,3 +37,7 @@ simulation:
 backtest:
   estimation_window: 500
   horizon_days: 1
+
+part2:
+  output_dir: outputs/part2
+  rolling_volatility_windows: [21, 63]

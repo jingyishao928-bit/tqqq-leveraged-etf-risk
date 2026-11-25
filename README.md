@@ -116,12 +116,19 @@ run to another location.
 均值和标准差是日度口径，回归系数用小数收益计算。散点图是市场收益的描述性检查，
 不能直接当成官方 NAV 跟踪检验或样本外回测。
 
+## Run the Part 2 analysis
+
+Run `python outputs/part2/analyze_part2.py` after installing the requirements.
+The analysis uses the same frozen CSV and writes historical paths, attribution
+and comparisons, the report section and the four-slide script. See the
+[Part 2 guide](outputs/part2/README.md) for table definitions and verification.
+
 ## Team ownership
 
 Generated results are grouped by presentation part under `outputs/part1/`
 through `outputs/part5/`. Existing Part 1 figures and CSV/DTA tables are in
-`outputs/part1/figures/` and `outputs/part1/tables/`; Parts 2-5 are reserved
-empty directories. See [output layout](outputs/README.md) for the convention.
+`outputs/part1/figures/` and `outputs/part1/tables/`. Part 2 historical
+results live under `outputs/part2/`. See [output layout](outputs/README.md) for the convention.
 Shared raw/processed data and audit metadata remain under `data/`.
 
 | Workstream | Main responsibility | Primary locations |
