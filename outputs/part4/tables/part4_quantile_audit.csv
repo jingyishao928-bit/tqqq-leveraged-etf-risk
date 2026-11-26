@@ -1,0 +1,2 @@
+asset,position,model,horizon_days,confidence,observations,shared_var_loss,notebook_recomputed_loss,notebook_published_loss,shared_minus_notebook,shared_minus_published,recomputed_minus_published,as_of,initial_notional_usd
+TQQQ,Long,GARCH-t,21,0.99,10000,0.6499450192191749,0.6499486175488661,0.6499486175488655,-3.598329691212321e-06,-3.598329690546187e-06,6.661338147750939e-16,2026-11-20,1.0
